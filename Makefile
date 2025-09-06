@@ -6,12 +6,12 @@
 #    By: nofanizz <nofanizz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 13:45:35 by nofanizz          #+#    #+#              #
-#    Updated: 2025/09/06 13:12:25 by nofanizz         ###   ########.fr        #
+#    Updated: 2025/09/06 19:47:35 by nofanizz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-BINARIES	= pipex checker
+BINARIES	= cub3d
 
 ifeq ($(filter bonus clean fclean,$(MAKECMDGOALS)),)
 	include mandatory/mandatory.mk

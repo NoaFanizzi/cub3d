@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:05:38 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/09/06 15:14:59 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/09/06 19:00:24 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,12 @@ int	map_parser(int argc, char **argv)
 	if(is_suffix_correct(argv[1]) == 1)
 		return(1);
 	map = get_map(argv);
-	if(check_width(map) == 1 || check_border(map) == 1)
-	{
-		free_tab(&map);
-		return(1);
-	}
 	display_tab(map);
+	// if(check_border(map) == 1)
+	// {
+	// 	free_tab(&map);
+	// 	return(1);
+	// }
 	free_tab(&map);
 	return(0);
 }
