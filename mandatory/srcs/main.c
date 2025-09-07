@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 12:31:34 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/09/07 13:43:14 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/09/07 15:57:30 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,11 @@ void	display_tab(char **map)
 
 int	main(int argc, char **argv)
 {
-	if (map_parser(argc, argv) == 1)
+	t_data	data;
+	char	**map;
+
+	map = NULL;
+	if (map_parser(argc, argv, &data.map) == 1)
 	{
 		if (argc == 1)
 			ft_putendl_fd("No map sended !", 2);
@@ -49,5 +53,13 @@ int	main(int argc, char **argv)
 			ft_putendl_fd("Invalid map sended !", 2);
 		return (1);
 	}
-	windows_creation();
+	//data.map = map;
+	init_player(&data);
+	if (init_mlx(&data) == 1)
+		return (1);
+	mlx_key_hook(data.win, key_hook, &data);
+	mlx_hook(data.win, 17, 0, close_window, &data);
+	render_frame(&data);
+	mlx_loop(data.mlx);
+	return (0);
 }

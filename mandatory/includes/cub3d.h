@@ -7,11 +7,16 @@
 #include <stdio.h>
 #include "get_next_line.h"
 #include "parsing.h"
+#include "mlx.h"
+#include <stdlib.h>
 
-int windows_creation(void);
+#define WINDOW_WIDTH 1280
+#define WINDOW_HEIGHT 720
+#define TILE_SIZE 50
+
+int windows_creation(t_data *data);
 
 void	free_tab(char ***tab);
 void	display_tab(char **map);
-
 
 #endif
