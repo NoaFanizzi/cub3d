@@ -8,6 +8,8 @@
 #include "get_next_line.h"
 #include "parsing.h"
 
+int windows_creation(void);
+
 void	free_tab(char ***tab);
 void	display_tab(char **map);
 

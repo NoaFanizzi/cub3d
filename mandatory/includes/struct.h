@@ -7,4 +7,10 @@ typedef struct s_size
 	size_t	y;
 }				t_size;
 
+typedef struct player
+{
+	size_t	pos_x;
+	size_t	pos_y;
+}				t_player;
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 19:38:48 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/09/07 11:35:21 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/09/07 13:42:57 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	get_tab_length(char ***tab, size_t *length)
 		i++;
 	}
 }
+
 int	get_last_line_pos(char ***map)
 {
 	size_t	i;
@@ -65,12 +66,12 @@ void	replace_char(char ***map, char old, char new)
 	size_t	j;
 
 	i = 0;
-	while((*map)[i])
+	while ((*map)[i])
 	{
 		j = 0;
-		while((*map)[i][j])
+		while ((*map)[i][j])
 		{
-			if((*map)[i][j] == old)
+			if ((*map)[i][j] == old)
 				(*map)[i][j] = new;
 			j++;
 		}

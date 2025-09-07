@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:02:30 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/09/07 11:35:14 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/09/07 13:42:05 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,33 +58,31 @@ void	load_delimitation_line(char **trimmed_map, size_t length)
 void	add_last_line(char ***map)
 {
 	size_t	length;
-	char	*line_full_X;
+	char	*line_full_x;
 	char	**new_map;
 	char	**old_map;
 
 	length = get_last_line_length(map);
-	line_full_X = ft_calloc(length + 1, sizeof(char));
-	if (!line_full_X)
-		return;
-		
-	load_delimitation_line(&line_full_X, length);
+	line_full_x = ft_calloc(length + 1, sizeof(char));
+	if (!line_full_x)
+		return ;
+	load_delimitation_line(&line_full_x, length);
 	old_map = *map;
-	resize_map(map, &new_map, &line_full_X, 1);
-	
+	resize_map(map, &new_map, &line_full_x, 1);
 	if (new_map)
 	{
 		if (old_map)
 			free_tab(&old_map);
 		*map = new_map;
 	}
-	free(line_full_X);
+	free(line_full_x);
 }
 
 int	update_map(char ***map, char **temp)
 {
 	char	**new_map;
 	char	*trimmed_line;
-	char	*line_full_X;
+	char	*line_full_x;
 
 	if (!*temp)
 	{
@@ -98,10 +96,10 @@ int	update_map(char ***map, char **temp)
 	}
 	else
 	{
-		line_full_X = ft_calloc(ft_strlen(trimmed_line) + 3, sizeof(char));
-		load_delimitation_line(&line_full_X, ft_strlen(trimmed_line));
-		resize_map(map, &temp, &line_full_X, 0);
-		free(line_full_X);
+		line_full_x = ft_calloc(ft_strlen(trimmed_line) + 3, sizeof(char));
+		load_delimitation_line(&line_full_x, ft_strlen(trimmed_line));
+		resize_map(map, &temp, &line_full_x, 0);
+		free(line_full_x);
 		resize_map(&temp, &new_map, &trimmed_line, 0);
 		if (*temp)
 			free_tab(&temp);
