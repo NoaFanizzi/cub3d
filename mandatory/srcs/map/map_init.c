@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:02:30 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/09/06 19:39:31 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/09/07 11:35:14 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,5 +132,6 @@ char	**get_map(char **argv)
 		free(temp);
 	}
 	close(fd);
+	replace_char(&map, ' ', 'X');
 	return (map);
 }

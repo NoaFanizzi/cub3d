@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:05:38 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/09/06 19:00:24 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/09/07 11:38:05 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,16 @@ int	check_border(char **map)
 	size_t	j;
 
 	i = 0;
-	j = 0;
 	while(map[i])
 	{
 		j = 0;
-		while(map[i][j+1])
+		while(map[i][j])
+		{
+			if((map[i][j] == '0')
+			&&(map[i][j-1] == 'X' || map[i][j+1] == 'X' || map[i-1][j] == 'X' || map[i+1][j] == 'X'))
+				return(1);
 			j++;
-		if(map[i][0] != '1' || map[i][j] != '1')
-			return(1);
+		}
 		i++;
 	}
 	return(0);
@@ -78,11 +80,14 @@ int	map_parser(int argc, char **argv)
 		return(1);
 	map = get_map(argv);
 	display_tab(map);
-	// if(check_border(map) == 1)
-	// {
-	// 	free_tab(&map);
-	// 	return(1);
-	// }
+	if(check_border(map) == 1)
+	{
+		free_tab(&map);
+		return(1);
+	}
+	replace_char(&map, 'X', '1');
+	ft_putstr_fd("\n\n\n", 1);
+	display_tab(map);
 	free_tab(&map);
 	return(0);
 }

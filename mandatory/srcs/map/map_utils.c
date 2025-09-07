@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 19:38:48 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/09/06 19:39:28 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/09/07 11:35:21 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,23 @@ int	get_last_line_length(char ***map)
 	pos = get_last_line_pos(map);
 	length = ft_strlen((*map)[pos]);
 	return (length);
+}
+
+void	replace_char(char ***map, char old, char new)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	while((*map)[i])
+	{
+		j = 0;
+		while((*map)[i][j])
+		{
+			if((*map)[i][j] == old)
+				(*map)[i][j] = new;
+			j++;
+		}
+		i++;
+	}
 }
