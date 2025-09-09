@@ -1,76 +1,127 @@
-NAME = libft.a
+SRCS_FILE :=	$(addprefix ft_, \
+		absl \
+		abs \
+		atoi \
+		atol_base \
+		atol \
+		atoll \
+		bzero \
+		calloc \
+		close_all \
+		count_words \
+		free_split \
+		free \
+		gnl \
+		isalnum \
+		isalpha \
+		isascii \
+		isdigit \
+		islower \
+		isprint \
+		isspace \
+		isupper \
+		itoa \
+		llitoa \
+		lstadd_back \
+		lstadd_front \
+		lstlast \
+		lstnew \
+		lstsize \
+		lstswap \
+		lstdelone \
+		lstdup \
+		lstfirst \
+		lstget_index \
+		lstindex \
+		lstclear \
+		lstiter \
+		lstmap \
+		memchr \
+		memcmp \
+		memcpy \
+		memmove \
+		memset \
+		putchar_fd \
+		putendl_fd \
+		putnbr_base_fd \
+		putnbr_fd \
+		putstr_fd \
+		read_file \
+		split \
+		strcat \
+		strchr \
+		strcmp \
+		strcpy \
+		strcrop \
+		strdup \
+		striteri \
+		strjoin_all \
+		strjoin \
+		strjoinfree \
+		strlcat \
+		strlcpy \
+		strlen \
+		strmapi \
+		strncat \
+		strncmp \
+		strnstr \
+		strrchr \
+		strrev \
+		strtrim \
+		substr \
+		tolower \
+		toupper \
+		wipe \
+		printf \
+		printf_hexa \
+		printf_pnt \
+		)
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -Iincludes
+SRCS := $(addsufix .c, $(SRCS_FILE))
+OBJ_DIR := .objs/
+OBJS :=	$(addsuffix .o, $(addprefix $(OBJ_DIR), $(SRCS_FILE)))
+INC_FILE := libft.h
+AR :=	ar -rcs
+CC :=	cc
+CFLAGS :=	-Wall -Wextra -Werror -fPIC
+NAME :=	libft.a
 
-SRCS_DIR = srcs/
-INCLUDES_DIR = includes/
+GREEN := \033[0;32m
+YELLOW :=\033[0;33m
+RED := \033[0;31m
+BLUE := \033[0;34m
+END := \033[0m
 
-SRCS = $(addprefix $(SRCS_DIR), ft_atoi.c \
-								ft_bzero.c \
-								ft_calloc.c \
-								ft_isalnum.c \
-								ft_isalpha.c \
-								ft_isascii.c \
-								ft_isdigit.c \
-								ft_isprint.c \
-								ft_itoa.c \
-								ft_memchr.c \
-								ft_memcmp.c \
-								ft_memcpy.c \
-								ft_memmove.c \
-								ft_memset.c \
-								ft_putchar_fd.c \
-								ft_putendl_fd.c \
-								ft_putnbr_fd.c \
-								ft_putstr_fd.c \
-								ft_split.c \
-								ft_strchr.c \
-								ft_strdup.c \
-								ft_striteri.c \
-								ft_strjoin.c \
-								ft_strlcat.c \
-								ft_strlcpy.c \
-								ft_strlen.c \
-								ft_strmapi.c \
-								ft_strncmp.c \
-								ft_strnstr.c \
-								ft_strrchr.c \
-								ft_strtrim.c \
-								ft_substr.c \
-								ft_tolower.c \
-								ft_lstadd_back_bonus.c \
-								ft_lstadd_front_bonus.c \
-								ft_lstclear_bonus.c \
-								ft_lstdelone_bonus.c \
-								ft_lstiter_bonus.c \
-								ft_lstlast_bonus.c \
-								ft_lstmap_bonus.c \
-								ft_lstnew_bonus.c \
-								ft_lstsize_bonus.c \
-								ft_strcmp.c \
-								ft_strcat.c \
-								ft_strcpy.c \
-								ft_tablen.c \
-								ft_wipe.c \
-								ft_strncat.c \
-								ft_toupper.c)
+GREENB := \033[1;32m
+BLUEB := \033[1;34m
+YELLOWB :=\033[1;33m
+REDB := \033[1;31m
 
-OBJS = $(SRCS:.c=.o)
 
-all: $(NAME)
+all: $(OBJ_DIR) $(NAME)
 
-$(NAME): $(OBJS)
-	ar rcs $(NAME) $(OBJS)
+$(OBJS): Makefile
 
-%.o: %.c $(INCLUDES_DIR)/libft.h
-	$(CC) $(CFLAGS) -c $< -o $@
+${NAME}: ${OBJS}
+	@echo "$(YELLOWB)🗃️  $@$(END)"
+	@$(AR) $(NAME) ${OBJS}
+
+$(OBJ_DIR)%.o: %.c $(INC_FILE)
+	@echo -n "$(BLUEB)🔨 $<"
+	@echo " ->$(END) $@" | cut -b 1-8,15-
+	@${CC} ${CFLAGS} -c $< -o $@
+
+$(OBJ_DIR):
+	@echo "$(GREENB)mkdir $(GREEN)$(OBJ_DIR)$(END)"
+	@mkdir -p $(OBJ_DIR)
 
 clean:
-	rm -f $(OBJS)
+	@echo "$(REDB)🗑️  $(OBJ_DIR)$(END)"
+	@rm -rf $(OBJ_DIR)
 
 fclean: clean
-	rm -f $(NAME)
+	@echo "$(REDB)🗑️  $(NAME)$(END)"
+	@rm -f $(NAME)
 
 re: fclean all
 

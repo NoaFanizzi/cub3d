@@ -6,7 +6,7 @@
 #    By: lmarcucc <lucas@student.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 13:45:35 by nofanizz          #+#    #+#              #
-#    Updated: 2025/09/08 23:18:45 by lmarcucc         ###   ########.fr        #
+#    Updated: 2025/09/09 10:31:37 by lmarcucc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,16 +37,16 @@ ifeq ($(UNAME_S),Darwin)
 endif
 
 CC      = cc
-C_FLAGS = 
+C_FLAGS = -Wall -Wextra -Werror
 D_FLAGS = -MMD -MP -MF $(DEP_DIR)/$*.d
-I_FLAGS = -I$(INC_DIR) -I$(LIBFT_DIR)/includes -I$(MLX_DIR)
+I_FLAGS = -I$(INC_DIR) -I$(LIBFT_DIR) -I$(MLX_DIR)
 L_FLAGS = -L$(LIBFT_DIR) -lft -L$(MLX_DIR) $(MLX_FLAGS)
 CF      = $(CC) $(C_FLAGS) $(I_FLAGS)
 
-vpath %.c $(LIBFT_DIR)/srcs
-vpath %.h $(LIBFT_DIR)/includes
-vpath %.o $(OBJ_DIR) $(LIBFT_DIR)/$(OBJ_DIR)
-vpath %.d $(DEP_DIR) $(LIBFT_DIR) /$(DEP_DIR)
+vpath %.c $(LIBFT_DIR)
+vpath %.h $(LIBFT_DIR)
+vpath %.o $(OBJ_DIR)
+vpath %.d $(DEP_DIR)
 
 OBJS    = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))
 DEPS    = $(addprefix $(DEP_DIR)/, $(notdir $(SRCS:.c=.d)))

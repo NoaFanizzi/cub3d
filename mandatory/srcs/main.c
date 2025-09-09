@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nofanizz <nofanizz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmarcucc <lucas@student.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 12:31:34 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/09/07 15:57:30 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/09/09 10:37:31 by lmarcucc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	main(int argc, char **argv)
 			ft_putendl_fd("Invalid map sended !", 2);
 		return (1);
 	}
-	//data.map = map;
+	data.map = map;
 	init_player(&data);
 	if (init_mlx(&data) == 1)
 		return (1);
