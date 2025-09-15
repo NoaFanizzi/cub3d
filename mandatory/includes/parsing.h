@@ -24,8 +24,6 @@ int		get_last_line_length(char ***map);
 void	replace_char(char ***map, char old, char new);
 
 //map_drawing.c
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void	draw_square(t_data *data, int start_x, int start_y, int size, int color);
 int		get_tile_color(char c);
 void	draw_tile(t_data *data, int start_x, int start_y, int size, int color);
 void	draw_player_dot(t_data *data, int tile_size);

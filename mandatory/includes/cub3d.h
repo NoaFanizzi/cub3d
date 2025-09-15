@@ -1,20 +1,38 @@
 #ifndef CUB3D_H
 #define CUB3D_H
 
-#include <sys/stat.h>
+#include "libft.h"
+#include <math.h>
 #include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
-#include "get_next_line.h"
+#include <sys/stat.h>
+#include <sys/time.h>
 #include "parsing.h"
 #include "mlx.h"
-#include <stdlib.h>
 
-#define WINDOW_WIDTH 1280
+#define WINDOW_WIDTH 1080
 #define WINDOW_HEIGHT 720
-#define TILE_SIZE 50
+#define FPS 30
+# define FOV 60
 
-int windows_creation(t_data *data);
+#define PI 3.14159265359
+
+#define W 119
+#define A 97
+#define S 115
+#define D 100
+#define LEFT 65361
+#define RIGHT 65363
+
+void	my_put_pixel(t_vec2 pos, int color, t_data *data);
+void	draw_square(t_vec2 pos, int size, int color, t_data *data);
+
+int	key_press(int keycode, t_player *player);
+int	key_release(int keycode, t_player *player);
+void	player_movement(t_player *player);
+
+int	close_window(t_data *data);
+long	get_time_ms(void);
+
 
 void	free_tab(char ***tab);
 void	display_tab(char **map);
