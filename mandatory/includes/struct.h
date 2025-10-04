@@ -1,6 +1,15 @@
 #ifndef STRUCT_H
 # define STRUCT_H
 
+#define NB_TEXTURES 4
+
+enum {
+    NO = 0,
+    SO = 1,
+    WE = 2,
+    EA = 3
+};
+
 typedef struct	s_vec2
 {
 	int	x;
@@ -28,6 +37,18 @@ typedef struct s_player
 	t_bool	right_rot;
 }			t_player;
 
+typedef struct s_texture
+{
+    void    *img;
+    int     *addr;
+    int     width;
+    int     height;
+    int     bpp;
+    int     line_length;
+    int     endian;
+	char 	*path;
+}   		t_texture;
+
 typedef struct s_data
 {
 	void	*mlx;
@@ -41,15 +62,16 @@ typedef struct s_data
 	int		tile_size;
 	long	last_frame;
 	t_player player;
+	t_texture   texture[NB_TEXTURES];
 }			t_data;
 
-typedef struct s_texture
-{
-	char *NO;
-	char *SO;
-	char *WE;
-	char *EA;
-}				t_texture;
+// typedef struct s_texture
+// {
+// 	char *NO;
+// 	char *SO;
+// 	char *WE;
+// 	char *EA;
+// }				t_texture;
 
 typedef struct s_size
 {

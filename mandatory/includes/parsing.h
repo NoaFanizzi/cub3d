@@ -7,14 +7,14 @@
 int		is_suffix_correct(char *str, char *suffix);
 int		check_width(char **map);
 int		check_border(char **map);
-int		map_parser(int argc, char **argv, char ***map);
+int		map_parser(int argc, char **argv, char ***map, t_data *data);
 
 //map_init.c
 void	resize_map(char ***map, char ***new_map, char **temp, int is_last);
 void	load_delimitation_line(char **trimmed_map, size_t length);
 void	add_last_line(char ***map);
 int		update_map(char ***map, char **temp);
-char	**get_map(char **argv);
+char	**get_map(char **argv, t_data *data);
 
 //map_utils.c
 void	get_map_size(t_size *size, char ***map);

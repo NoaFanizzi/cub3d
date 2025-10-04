@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:05:38 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/10/04 08:52:18 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/10/04 10:18:12 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,19 @@ int	is_suffix_correct(char *str, char *suffix)
 		i++;
 	while (j < 4)
 	{
+		printf("str[i] = %c (%d) et i = %zu\n", str[i], str[i], i);
+		printf("str[i-1] = %c (%d) et i-1 = %zu\n", str[i-1], str[i-1], i - 1);
+		printf("suffix[i] = %c\n\n", suffix[j]);
 		if (str[i] != suffix[j])
+		{
+			printf("str = %s\n", str);
+			printf("suffix = %s\n", suffix);
 			return (1);
+		}
 		i--;
 		j++;
 	}
+	printf("----------------------\n\n\n");
 	return (0);
 }
 
@@ -98,14 +106,14 @@ int	check_validity(char **map)
 	return (0);
 }
 
-int	map_parser(int argc, char **argv, char ***map)
+int	map_parser(int argc, char **argv, char ***map, t_data *data)
 {
 	*map = NULL;
 	if (argc != 2)
 		return (1);
 	if (is_suffix_correct(argv[1], "buc.") == 1)
 		return (1);
-	*map = get_map(argv);
+	*map = get_map(argv, data);
 	if(!*map)
 		return(1);
 	display_tab(*map);

@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean.c                                            :+:      :+:    :+:   */
+/*   ft_remove_last_char.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/04 08:22:45 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/10/04 09:23:05 by nofanizz         ###   ########.fr       */
+/*   Created: 2025/10/04 10:55:01 by nofanizz          #+#    #+#             */
+/*   Updated: 2025/10/04 10:56:10 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "clean.h"
+#include "libft.h"
 
-void    wipe(char **str)
+void remove_last_char(char *str)
 {
-    free(*str);
-    *str = NULL;
-}
+    size_t i;
 
-void    clean_texture(t_data *data)
-{
-    free(data->texture[NO].path);
-	free(data->texture[SO].path);
-	free(data->texture[EA].path);
-	free(data->texture[WE].path);
+    if (!str)
+        return;
+    i = 0;
+    while (str[i])
+        i++;
+    if (i > 0)
+        str[i - 1] = '\0';
 }

@@ -7,6 +7,8 @@
 #include <sys/stat.h>
 #include <sys/time.h>
 #include "parsing.h"
+#include "struct.h"
+#include "clean.h"
 #include "mlx.h"
 
 #define WINDOW_WIDTH 1920
@@ -38,9 +40,9 @@ void	free_tab(char ***tab);
 void	display_tab(char **map);
 
 //map_utils.c
-void	display_texture_data(t_texture *texture);
+void	display_texture_data(t_data *data);
 
 //map_texture_management.c
-int	    get_textures(int fd, t_texture *texture);
+int	    parse_textures(int fd, t_data *data);
 
 #endif

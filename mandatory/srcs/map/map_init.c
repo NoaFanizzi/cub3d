@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:02:30 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/10/04 08:50:20 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/10/04 10:19:56 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,29 +46,39 @@ int	update_map(char ***map, char **temp)
 	return (0);
 }
 
-char	**get_map(char **argv)
+int	is_map_suffix_correct(t_data *data, char *suffix)
+{
+	if((is_suffix_correct(data->texture[NO].path, suffix) != 0)
+	||(is_suffix_correct(data->texture[SO].path, suffix) != 0)
+	||(is_suffix_correct(data->texture[WE].path, suffix) != 0)
+	||(is_suffix_correct(data->texture[EA].path, suffix) != 0))
+		return(1);
+	return(0);
+}
+
+char	**get_map(char **argv, t_data *data)
 {
 	int		fd;
 	char	*temp;
 	char	**map;
-	t_texture texture;
 
 	map = NULL;
-	texture.NO = NULL;
-	texture.SO = NULL;
-	texture.WE = NULL;
-	texture.EA = NULL;
+	data->texture[NO].path = NULL;
+	data->texture[SO].path = NULL;
+	data->texture[WE].path = NULL;
+	data->texture[EA].path = NULL;
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 		return (NULL);
-	if (get_textures(fd, &texture) == 1)
+	if (parse_textures(fd, data) == 1)
 		return(NULL);
-	if(is_suffix_correct(argv[1], "mpx.") == 1)
+	display_texture_data(data);
+	if(is_map_suffix_correct(data, "mpx.") == 1)
 	{
-		clean_texture(&texture);
+		printf("ICI CA QUITTE\n");
+		clean_texture(data);
 		return(NULL);
 	}
-	display_texture_data(&texture);
 	while (1)
 	{
 		temp = get_next_line(fd);

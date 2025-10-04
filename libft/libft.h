@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmarcucc <lucas@student.fr>                +#+  +:+       +#+        */
+/*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:11:12 by lmarcucc          #+#    #+#             */
-/*   Updated: 2025/09/09 10:26:21 by lmarcucc         ###   ########.fr       */
+/*   Updated: 2025/10/04 10:56:31 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,5 +125,6 @@ char				*get_next_line(int fd);
 char				*ft_read_file(int fd);
 
 char				**ft_split(const char *str, int c);
+void 				remove_last_char(char *str);
 
 #endif

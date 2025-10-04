@@ -7,6 +7,6 @@
 #include "struct.h"
 
 void    wipe(char **str);
-void    clean_texture(t_texture *texture);
+void    clean_texture(t_data *data);
 
 #endif

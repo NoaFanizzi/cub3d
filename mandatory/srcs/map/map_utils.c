@@ -6,18 +6,18 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 19:38:48 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/10/04 08:44:00 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/10/04 09:24:53 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	display_texture_data(t_texture *texture)
+void	display_texture_data(t_data *data)
 {
-	printf("NO = %s\n", texture->NO);
-	printf("SO = %s\n", texture->SO);
-	printf("WE = %s\n", texture->WE);
-	printf("EA = %s\n", texture->EA);
+	printf("NO = %s\n", data->texture[NO].path);
+	printf("SO = %s\n", data->texture[SO].path);
+	printf("WE = %s\n", data->texture[WE].path);
+	printf("EA = %s\n", data->texture[EA].path);
 }
 
 void	get_map_size(t_size *size, char ***map)

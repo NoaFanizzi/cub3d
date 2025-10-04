@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmarcucc <lucas@student.fr>                +#+  +:+       +#+        */
+/*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 12:31:34 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/09/15 17:55:06 by lmarcucc         ###   ########.fr       */
+/*   Updated: 2025/10/04 09:20:43 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ void	init_game(t_data *data)
 		&data->line_length, &data->endian);
 	data->tile_size = get_tile_size(data->map);
 	data->last_frame = get_time_ms();
+	//init_texture();
 	init_player(data);
 }
 
@@ -297,7 +298,7 @@ int	main(int argc, char **argv)
 
 	(void)argv;
 	(void)argc;
-	if (map_parser(argc, argv, &data.map) == 1)
+	if (map_parser(argc, argv, &data.map, &data) == 1)
 	{
 		if (argc == 1)
 			ft_putendl_fd("No map sended !", 2);

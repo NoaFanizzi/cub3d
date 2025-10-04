@@ -75,6 +75,7 @@ SRCS_FILE :=	$(addprefix ft_, \
 		printf \
 		printf_hexa \
 		printf_pnt \
+		remove_last_char \
 		)
 
 SRCS := $(addsufix .c, $(SRCS_FILE))
