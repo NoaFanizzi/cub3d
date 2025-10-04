@@ -65,18 +65,53 @@ typedef struct s_data
 	t_texture   texture[NB_TEXTURES];
 }			t_data;
 
-// typedef struct s_texture
-// {
-// 	char *NO;
-// 	char *SO;
-// 	char *WE;
-// 	char *EA;
-// }				t_texture;
-
 typedef struct s_size
 {
 	size_t	x;
 	size_t	y;
 }			t_size;
+
+/* ========== NOUVELLES STRUCTURES POUR draw_line ========== */
+
+typedef struct s_ray
+{
+	double	cos_angle;
+	double	sin_angle;
+	int		map_x;
+	int		map_y;
+}	t_ray;
+
+typedef struct s_dda
+{
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	int		step_x;
+}	t_dda;
+
+typedef struct s_dda2
+{
+	int		step_y;
+	int		hit;
+	int		side;
+}	t_dda2;
+
+typedef struct s_wall
+{
+	double	perp_wall_dist;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+	double	wall_x;
+}	t_wall;
+
+typedef struct s_tex
+{
+	t_texture	*tex;
+	int			tex_x;
+	double		step;
+	double		tex_pos;
+}	t_tex;
 
 #endif

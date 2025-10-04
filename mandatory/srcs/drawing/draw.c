@@ -6,12 +6,11 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 11:13:41 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/10/04 13:42:19 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/10/04 16:18:01 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
 
 int	get_tile_size(char **map)
 {
@@ -83,22 +82,6 @@ long	get_time_ms(void)
 	return (tv.tv_sec * 1000L + tv.tv_usec / 1000L);
 }
 
-void	init_game(t_data *data)
-{
-	data->mlx = mlx_init();
-	data->win = mlx_new_window(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "cub3d");
-	data->img = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
-		&data->line_length, &data->endian);
-	data->tile_size = get_tile_size(data->map);
-	data->last_frame = get_time_ms();
-	init_texture(data->mlx, &data->texture[NO], data->texture[NO].path);
-	init_texture(data->mlx, &data->texture[SO], data->texture[SO].path);
-	init_texture(data->mlx, &data->texture[WE], data->texture[WE].path);
-	init_texture(data->mlx, &data->texture[EA], data->texture[EA].path);
-	init_player(data);
-}
-
 void	draw_map(t_data *data)
 {
 	int	i;
@@ -122,154 +105,51 @@ void	draw_map(t_data *data)
 	}
 }
 
-t_bool	touch_wall(double px, double py, t_data *data)
-{
-	int	x;
-	int	y;
-
-	x = px / data->tile_size;
-	y = py / data->tile_size;
-	if (data->map[y][x] == '1' || data->map[y][x] == 'X')
-		return (true);
-	return (false);
-}
-
 double distance(double x, double y)
 {
     return (sqrt(x * x + y * y));
 }
 
-/* void	draw_line(t_data *data, double start_x, int i)
+void	draw_wall_column(t_tex *tex, t_wall *wall, t_data *data, int i)
 {
-	double	cos_angle = cos(start_x);
-	double	sin_angle = sin(start_x);
-	double	ray_x = data->player.pos.x;
-	double	ray_y = data->player.pos.y;
-	
-	while (!touch_wall(ray_x, ray_y, data))
+	int	y;
+	int	tex_y;
+	int	color;
+	int	offset;
+
+	y = wall->draw_start;
+	while (y < wall->draw_end)
 	{
-		//my_put_pixel((t_vec2){ray_x, ray_y}, 0x0000FF, data);
-		ray_x -= cos_angle;
-		ray_y += sin_angle;
-	}
-	double	dist = distance(ray_x - data->player.pos.x, ray_y - data->player.pos.y);
-	double	height = (data->tile_size / dist) * (WINDOW_WIDTH / 2);
-	int		start_y = (WINDOW_HEIGHT - height) / 2;
-	int		end = start_y + height;
-	while (start_y < end)
-	{
-		my_put_pixel((t_vec2){i, start_y}, 0xFF0000, data);
-		start_y++;
+		tex_y = (int)tex->tex_pos;
+		tex->tex_pos += tex->step;
+		offset = tex_y * (tex->tex->line_length / (tex->tex->bpp / 8));
+		color = tex->tex->addr[offset + tex->tex_x];
+		my_put_pixel((t_vec2){i, y}, color, data);
+		y++;
 	}
 }
- */
 
-void draw_line(t_data *data, double ray_angle, int i) {
-    double cos_angle = cos(ray_angle);
-    double sin_angle = sin(ray_angle);
+void	draw_line(t_data *data, double ray_angle, int i)
+{
+	t_ray	ray;
+	t_dda	dda;
+	t_dda2	dda2;
+	t_wall	wall;
+	t_tex	tex;
 
-    int map_x = (int)(data->player.pos.x / data->tile_size);
-    int map_y = (int)(data->player.pos.y / data->tile_size);
-
-    double dir_x = cos_angle;
-    double dir_y = sin_angle;
-
-    double delta_dist_x = (dir_x == 0) ? 1e30 : fabs(1 / dir_x);
-    double delta_dist_y = (dir_y == 0) ? 1e30 : fabs(1 / dir_y);
-
-    int step_x = (dir_x < 0) ? -1 : 1;
-    int step_y = (dir_y < 0) ? -1 : 1;
-
-    double side_dist_x, side_dist_y;
-    if (dir_x < 0)
-        side_dist_x = (data->player.pos.x / data->tile_size - map_x) * delta_dist_x;
-    else
-        side_dist_x = (map_x + 1.0 - data->player.pos.x / data->tile_size) * delta_dist_x;
-    if (dir_y < 0)
-        side_dist_y = (data->player.pos.y / data->tile_size - map_y) * delta_dist_y;
-    else
-        side_dist_y = (map_y + 1.0 - data->player.pos.y / data->tile_size) * delta_dist_y;
-
-    int hit = 0;
-    int side;
-    while (hit == 0) {
-        if (side_dist_x < side_dist_y) {
-            side_dist_x += delta_dist_x;
-            map_x += step_x;
-            side = 0;
-        } else {
-            side_dist_y += delta_dist_y;
-            map_y += step_y;
-            side = 1;
-        }
-        if (map_y >= 0 && map_x >= 0 && data->map[map_y] && data->map[map_y][map_x]) {
-            if (data->map[map_y][map_x] == '1' || data->map[map_y][map_x] == 'X')
-                hit = 1;
-        }
-    }
-
-    double perp_wall_dist;
-    if (side == 0)
-        perp_wall_dist = (side_dist_x - delta_dist_x);
-    else
-        perp_wall_dist = (side_dist_y - delta_dist_y);
-
-    if (perp_wall_dist < 0.001)
-        perp_wall_dist = 0.001;
-
-    int line_height = (int)(WINDOW_HEIGHT / perp_wall_dist);
-    int draw_start = -line_height / 2 + WINDOW_HEIGHT / 2;
-    if (draw_start < 0)
-        draw_start = 0;
-    int draw_end = line_height / 2 + WINDOW_HEIGHT / 2;
-    if (draw_end >= WINDOW_HEIGHT)
-        draw_end = WINDOW_HEIGHT - 1;
-
-    double wall_x;
-    if (side == 0)
-        wall_x = data->player.pos.y / data->tile_size + perp_wall_dist * dir_y;
-    else
-        wall_x = data->player.pos.x / data->tile_size + perp_wall_dist * dir_x;
-    wall_x -= floor(wall_x);
-
-    t_texture *tex;
-    if (side == 0) {
-        if (step_x > 0)
-            tex = &data->texture[EA];
-        else
-            tex = &data->texture[WE];
-    } else {
-        if (step_y > 0)
-            tex = &data->texture[SO];
-        else
-            tex = &data->texture[NO];
-    }
-
-    int tex_x = (int)(wall_x * (double)tex->width);
-
-    // Correct orientation for texture
-    if (side == 0 && dir_x < 0)
-        tex_x = tex->width - tex_x - 1;
-    if (side == 1 && dir_y > 0)
-        tex_x = tex->width - tex_x - 1;
-    if (tex_x < 0)
-        tex_x = 0;
-    if (tex_x >= tex->width)
-        tex_x = tex->width - 1;
-
-    double step = 1.0 * tex->height / line_height;
-    double tex_pos = (draw_start - WINDOW_HEIGHT / 2 + line_height / 2) * step;
-
-    for (int y = draw_start; y < draw_end; y++) {
-        int tex_y = (int)tex_pos;
-        tex_pos += step;
-        int color = tex->addr[tex_y * (tex->line_length / (tex->bpp / 8)) + tex_x];
-        my_put_pixel((t_vec2){i, y}, color, data);
-    }
+	init_ray(&ray, data, ray_angle);
+	init_dda(&dda, &ray);
+	init_side_dist_x(&dda, data, &ray);
+	init_side_dist_y(&dda, &dda2, data, &ray);
+	perform_dda(&dda, &ray, &dda2, data);
+	calc_wall_dist(&wall, &dda, &dda2);
+	calc_line_height(&wall);
+	calc_wall_x(&wall, data, &ray, &dda2);
+	tex.tex = select_texture(data, &dda, &dda2);
+	calc_tex_x(&tex, &wall, &ray, &dda2);
+	init_tex_render(&tex, &wall);
+	draw_wall_column(&tex, &wall, data, i);
 }
-
-
-
 
 void	draw_player(t_data *data)
 {
@@ -321,22 +201,4 @@ void	draw_floor_ceiling(t_data *data)
 		i++;
 	}
 	
-}
-
-int	game_loop(t_data *data)
-{
-	if (!frame_ready(data))
-		return (1);
-	mlx_destroy_image(data->mlx, data->img);
-	data->img = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
-		&data->line_length, &data->endian);
-	player_movement(&data->player);
-	draw_floor_ceiling(data);
-	//draw_pov(data);
-	//draw_map(data);
-	draw_player(data);
-	draw_square((t_vec2){WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2}, 10, 0xFFFFFF, data);
-	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
-	return (0);
 }

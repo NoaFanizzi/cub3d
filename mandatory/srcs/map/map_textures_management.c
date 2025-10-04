@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 08:33:12 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/10/04 11:34:24 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/10/04 16:18:04 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,30 @@ void    init_texture(void *mlx_ptr, t_texture *texture, char *file_path)
     texture->height = height;
 }
 
+t_texture	*select_texture(t_data *data, t_dda *dda, t_dda2 *dda2)
+{
+	if (dda2->side == 0)
+	{
+		if (dda->step_x > 0)
+			return (&data->texture[EA]);
+		else
+			return (&data->texture[WE]);
+	}
+	else
+	{
+		if (dda2->step_y > 0)
+			return (&data->texture[SO]);
+		else
+			return (&data->texture[NO]);
+	}
+}
 
+void	init_tex_render(t_tex *tex, t_wall *wall)
+{
+	tex->step = 1.0 * tex->tex->height / wall->line_height;
+	tex->tex_pos = (wall->draw_start - WINDOW_HEIGHT / 2
+			+ wall->line_height / 2) * tex->step;
+}
 
 int	parse_textures(int fd, t_data *data)
 {
