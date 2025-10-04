@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lmarcucc <lucas@student.fr>                +#+  +:+       +#+         #
+#    By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 13:45:35 by nofanizz          #+#    #+#              #
-#    Updated: 2025/09/09 10:31:37 by lmarcucc         ###   ########.fr        #
+#    Updated: 2025/10/04 08:29:00 by nofanizz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ ifeq ($(UNAME_S),Darwin)
 endif
 
 CC      = cc
-C_FLAGS = -Wall -Wextra -Werror
+C_FLAGS = -g -Wall -Wextra -Werror
 D_FLAGS = -MMD -MP -MF $(DEP_DIR)/$*.d
 I_FLAGS = -I$(INC_DIR) -I$(LIBFT_DIR) -I$(MLX_DIR)
 L_FLAGS = -L$(LIBFT_DIR) -lft -L$(MLX_DIR) $(MLX_FLAGS)

@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nofanizz <nofanizz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 19:38:48 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/09/07 13:42:57 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/10/04 08:44:00 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	display_texture_data(t_texture *texture)
+{
+	printf("NO = %s\n", texture->NO);
+	printf("SO = %s\n", texture->SO);
+	printf("WE = %s\n", texture->WE);
+	printf("EA = %s\n", texture->EA);
+}
 
 void	get_map_size(t_size *size, char ***map)
 {

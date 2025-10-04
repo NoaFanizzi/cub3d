@@ -37,4 +37,10 @@ long	get_time_ms(void);
 void	free_tab(char ***tab);
 void	display_tab(char **map);
 
+//map_utils.c
+void	display_texture_data(t_texture *texture);
+
+//map_texture_management.c
+int	    get_textures(int fd, t_texture *texture);
+
 #endif
