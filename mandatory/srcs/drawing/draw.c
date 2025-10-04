@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 11:13:41 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/10/04 16:18:01 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/10/04 17:19:52 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	get_tile_size(char **map)
 		size.y = i + 1;
 		i++;
 	}
-	printf("map size = [%d, %d]\n", size.x, size.y);
 	if (size.x > size.y)
 		return (WINDOW_WIDTH / size.x);
 	return (WINDOW_HEIGHT / size.y);
@@ -63,7 +62,7 @@ void	init_player(t_data *data)
 	data->player.pos = get_start_pos(data);
 	data->player.rot_speed = 0.1;
 	data->player.angle = 0;
-	data->player.speed = data->tile_size / FPS * 2;
+	data->player.speed = 5.0;
 	data->player.key_up = false;
 	data->player.key_down = false;
 	data->player.key_left = false;
@@ -144,7 +143,7 @@ void	draw_line(t_data *data, double ray_angle, int i)
 	perform_dda(&dda, &ray, &dda2, data);
 	calc_wall_dist(&wall, &dda, &dda2);
 	calc_line_height(&wall);
-	calc_wall_x(&wall, data, &ray, &dda2);
+	calc_wall_x(&wall, data, &ray, &dda, &dda2);
 	tex.tex = select_texture(data, &dda, &dda2);
 	calc_tex_x(&tex, &wall, &ray, &dda2);
 	init_tex_render(&tex, &wall);
@@ -153,16 +152,19 @@ void	draw_line(t_data *data, double ray_angle, int i)
 
 void	draw_player(t_data *data)
 {
-	double	pixel_step = FOV * (PI / 180) / WINDOW_WIDTH;
-	double	start_x = data->player.angle - (FOV * (PI / 180) / 2);
-	int		i = 0;
+	double	pixel_step;
+	double	ray_angle;
+	int		i;
+
+	pixel_step = FOV * (PI / 180) / WINDOW_WIDTH;
+	ray_angle = data->player.angle - (FOV * (PI / 180) / 2);
+	i = 0;
 	while (i < WINDOW_WIDTH)
 	{
-		draw_line(data, start_x, i);
-		start_x += pixel_step;
+		draw_line(data, ray_angle, i);
+		ray_angle += pixel_step;
 		i++;
 	}
-	//draw_square((t_vec2)data->player.pos, data->tile_size / 4, 0x00FF00, data);
 }
 
 t_bool	frame_ready(t_data *data)
@@ -182,23 +184,25 @@ t_bool	frame_ready(t_data *data)
 
 void	draw_floor_ceiling(t_data *data)
 {
-	int	i;
-	int	j;
-	int	color;
-	
-	color = 0x57c7d4;
+	int		*pixels;
+	int		i;
+	int		ceiling_color;
+	int		floor_color;
+	int		half_screen;
+
+	ceiling_color = 0x57c7d4;
+	floor_color = 0x83bd6f;
+	pixels = (int *)data->addr;
+	half_screen = WINDOW_HEIGHT * WINDOW_WIDTH / 2;
 	i = 0;
-	while (i < WINDOW_HEIGHT)
+	while (i < half_screen)
 	{
-		j = 0;
-		if (i > WINDOW_HEIGHT / 2)
-			color = 0x83bd6f;
-		while (j < WINDOW_WIDTH)
-		{
-			my_put_pixel((t_vec2){j, i}, color, data);
-			j++;
-		}
+		pixels[i] = ceiling_color;
 		i++;
 	}
-	
+	while (i < WINDOW_HEIGHT * WINDOW_WIDTH)
+	{
+		pixels[i] = floor_color;
+		i++;
+	}
 }

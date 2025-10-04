@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 16:16:42 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/10/04 16:17:21 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/10/04 17:14:20 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,8 @@ void	init_game(t_data *data)
 
 int	game_loop(t_data *data)
 {
-	if (!frame_ready(data))
-		return (1);
-	mlx_destroy_image(data->mlx, data->img);
-	data->img = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
-		&data->line_length, &data->endian);
 	player_movement(&data->player);
 	draw_floor_ceiling(data);
-	//draw_pov(data);
-	//draw_map(data);
 	draw_player(data);
 	draw_square((t_vec2){WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2}, 10, 0xFFFFFF, data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);

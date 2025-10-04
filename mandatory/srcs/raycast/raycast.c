@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 16:13:14 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/10/04 16:16:18 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/10/04 17:01:23 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,22 @@ void	calc_tex_x(t_tex *tex, t_wall *wall, t_ray *ray, t_dda2 *dda2)
 		tex->tex_x = tex->tex->width - 1;
 }
 
-void	calc_wall_x(t_wall *wall, t_data *data, t_ray *ray, t_dda2 *dda2)
+void	calc_wall_x(t_wall *wall, t_data *data, t_ray *ray, t_dda *dda, t_dda2 *dda2)
 {
 	if (dda2->side == 0)
-		wall->wall_x = data->player.pos.y / data->tile_size
-			+ wall->perp_wall_dist * ray->sin_angle;
+		wall->wall_x = data->player.pos.y / data->tile_size;
 	else
-		wall->wall_x = data->player.pos.x / data->tile_size
-			+ wall->perp_wall_dist * ray->cos_angle;
+		wall->wall_x = data->player.pos.x / data->tile_size;
+	
+	if (dda2->side == 0)
+		wall->wall_x += (ray->map_x - data->player.pos.x / data->tile_size 
+			+ (1 - dda->step_x) / 2.0) / ray->cos_angle * ray->sin_angle;
+	else
+		wall->wall_x += (ray->map_y - data->player.pos.y / data->tile_size 
+			+ (1 - dda2->step_y) / 2.0) / ray->sin_angle * ray->cos_angle;
+	
 	wall->wall_x -= floor(wall->wall_x);
 }
-
-
 
 void	calc_wall_dist(t_wall *wall, t_dda *dda, t_dda2 *dda2)
 {

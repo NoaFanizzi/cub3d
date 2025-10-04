@@ -71,8 +71,6 @@ typedef struct s_size
 	size_t	y;
 }			t_size;
 
-/* ========== NOUVELLES STRUCTURES POUR draw_line ========== */
-
 typedef struct s_ray
 {
 	double	cos_angle;

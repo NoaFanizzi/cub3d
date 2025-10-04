@@ -11,7 +11,7 @@ void	init_dda(t_dda *dda, t_ray *ray);
 
 //raycast.c
 void	calc_tex_x(t_tex *tex, t_wall *wall, t_ray *ray, t_dda2 *dda2);
-void	calc_wall_x(t_wall *wall, t_data *data, t_ray *ray, t_dda2 *dda2);
+void	calc_wall_x(t_wall *wall, t_data *data, t_ray *ray, t_dda *dda, t_dda2 *dda2);
 void	calc_wall_dist(t_wall *wall, t_dda *dda, t_dda2 *dda2);
 void	calc_line_height(t_wall *wall);
 void	init_ray(t_ray *ray, t_data *data, double ray_angle);
