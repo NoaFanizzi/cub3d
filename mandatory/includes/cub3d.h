@@ -15,7 +15,7 @@
 #define WINDOW_WIDTH 1920
 #define WINDOW_HEIGHT 1080
 #define FPS 30
-#define FOV 60
+#define FOV 100
 
 #define PI 3.14159265359
 
