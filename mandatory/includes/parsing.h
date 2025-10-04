@@ -2,6 +2,8 @@
 # define PARSING_H
 
 #include "struct.h"
+#include "cub3d.h"
+#include "drawing.h"
 
 //map_parsing.c
 int		is_suffix_correct(char *str, char *suffix);

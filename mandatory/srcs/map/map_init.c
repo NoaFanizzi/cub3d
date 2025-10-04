@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:02:30 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/10/04 10:19:56 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/10/04 11:03:15 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ char	**get_map(char **argv, t_data *data)
 	display_texture_data(data);
 	if(is_map_suffix_correct(data, "mpx.") == 1)
 	{
-		printf("ICI CA QUITTE\n");
 		clean_texture(data);
 		return(NULL);
 	}

@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 08:33:12 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/10/04 10:58:49 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/10/04 11:03:52 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,23 @@ static int	check_and_add_texture(char *temp, const char *prefix, char **dest)
 	return (0);
 }
 
-// void    init_texture()
-// {
-//     int width;
-//     int height;
-    
-//     data->textures[0].img = mlx_xpm_file_to_image(data->mlx, "textures/wall_north.xpm", &width, &height);
-//     if (!data->textures[0].img) 
-//         exit_error("Impossible de charger texture");
-//     data->textures[0].addr = (int *)mlx_get_data_addr(data->textures[0].img, 
-//         &data->textures[0].bpp, &data->textures[0].line_length, &data->textures[0].endian);
-//     data->textures[0].width = width;
-//     data->textures[0].height = height;
-// }
+void    init_texture(void *mlx_ptr, t_texture *texture, char *file_path)
+{
+    int width;
+    int height;
+
+    texture->img = mlx_xpm_file_to_image(mlx_ptr, file_path, &width, &height);
+    if (!texture->img)
+    {
+        perror("Erreur chargement texture");
+        exit(EXIT_FAILURE);
+    }
+    texture->addr = (int *)mlx_get_data_addr(texture->img, &texture->bpp,
+                                            &texture->line_length, &texture->endian);
+    texture->width = width;
+    texture->height = height;
+}
+
 
 
 int	parse_textures(int fd, t_data *data)

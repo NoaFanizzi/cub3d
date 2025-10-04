@@ -9,6 +9,7 @@
 #include "parsing.h"
 #include "struct.h"
 #include "clean.h"
+#include "drawing.h"
 #include "mlx.h"
 
 #define WINDOW_WIDTH 1920
@@ -44,5 +45,6 @@ void	display_texture_data(t_data *data);
 
 //map_texture_management.c
 int	    parse_textures(int fd, t_data *data);
+void    init_texture(void *mlx_ptr, t_texture *texture, char *file_path);
 
 #endif
