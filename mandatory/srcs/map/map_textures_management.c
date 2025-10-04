@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 08:33:12 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/10/04 11:03:52 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/10/04 11:34:24 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void    init_texture(void *mlx_ptr, t_texture *texture, char *file_path)
     int width;
     int height;
 
+	printf("Loading texture: %s\n", file_path);
     texture->img = mlx_xpm_file_to_image(mlx_ptr, file_path, &width, &height);
     if (!texture->img)
     {

@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 11:13:41 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/10/04 11:14:06 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/10/04 13:27:19 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,40 +164,147 @@ double distance(double x, double y)
 }
  */
 
-void	draw_line(t_data *data, double ray_angle, int i)
+void draw_line(t_data *data, double ray_angle, int i)
 {
-	double	cos_angle = cos(ray_angle);
-	double	sin_angle = sin(ray_angle);
-	double	ray_x = data->player.pos.x;
-	double	ray_y = data->player.pos.y;
-
-	// Step forward until we hit a wall
-	while (!touch_wall(ray_x, ray_y, data))
-	{
-		ray_x += cos_angle;
-		ray_y += sin_angle;
-	}
-
-	// Euclidean distance from player to wall
-	double dx = ray_x - data->player.pos.x;
-	double dy = ray_y - data->player.pos.y;
-	double dist = sqrt(dx * dx + dy * dy);
-
-	// Fish-eye correction
-	dist *= cos(ray_angle - data->player.angle);
-
-	// Project wall height on screen
-	double height = (data->tile_size / dist) * (WINDOW_WIDTH / 2);
-	int start_y = (WINDOW_HEIGHT - height) / 2;
-	int end_y = start_y + height;
-
-	// Draw vertical wall slice
-	while (start_y < end_y && start_y < WINDOW_HEIGHT)
-	{
-		my_put_pixel((t_vec2){i, start_y}, 0xFF0000, data);
-		start_y++;
-	}
+    double cos_angle = cos(ray_angle);
+    double sin_angle = sin(ray_angle);
+    
+    // Position du joueur en coordonnées de grille
+    int map_x = (int)(data->player.pos.x / data->tile_size);
+    int map_y = (int)(data->player.pos.y / data->tile_size);
+    
+    // Direction du rayon
+    double dir_x = cos_angle;
+    double dir_y = sin_angle;
+    
+    // Distance à parcourir pour aller d'une ligne de grille à l'autre
+    double delta_dist_x = (dir_x == 0) ? 1e30 : fabs(1 / dir_x);
+    double delta_dist_y = (dir_y == 0) ? 1e30 : fabs(1 / dir_y);
+    
+    // Direction du step (+1 ou -1)
+    int step_x = (dir_x < 0) ? -1 : 1;
+    int step_y = (dir_y < 0) ? -1 : 1;
+    
+    // Distance depuis le point de départ jusqu'à la prochaine ligne de grille
+    double side_dist_x, side_dist_y;
+    
+    // Calcul des distances initiales
+    if (dir_x < 0)
+        side_dist_x = (data->player.pos.x / data->tile_size - map_x) * delta_dist_x;
+    else
+        side_dist_x = (map_x + 1.0 - data->player.pos.x / data->tile_size) * delta_dist_x;
+    
+    if (dir_y < 0)
+        side_dist_y = (data->player.pos.y / data->tile_size - map_y) * delta_dist_y;
+    else
+        side_dist_y = (map_y + 1.0 - data->player.pos.y / data->tile_size) * delta_dist_y;
+    
+    // DDA
+    int hit = 0;
+    int side; // 0 = vertical, 1 = horizontal
+    
+    while (hit == 0)
+    {
+        // Avancer dans la grille
+        if (side_dist_x < side_dist_y)
+        {
+            side_dist_x += delta_dist_x;
+            map_x += step_x;
+            side = 0;
+        }
+        else
+        {
+            side_dist_y += delta_dist_y;
+            map_y += step_y;
+            side = 1;
+        }
+        
+        // Vérifier si on a touché un mur
+        if (map_y >= 0 && map_x >= 0 && data->map[map_y] && data->map[map_y][map_x])
+        {
+            if (data->map[map_y][map_x] == '1' || data->map[map_y][map_x] == 'X')
+                hit = 1;
+        }
+    }
+    
+    // Calcul de la distance perpendiculaire (pour éviter l'effet fish-eye)
+    double perp_wall_dist;
+    if (side == 0)
+        perp_wall_dist = (side_dist_x - delta_dist_x);
+    else
+        perp_wall_dist = (side_dist_y - delta_dist_y);
+    
+    // Éviter division par zéro
+    if (perp_wall_dist < 0.001)
+        perp_wall_dist = 0.001;
+    
+    // Hauteur de la ligne à dessiner
+    int line_height = (int)(WINDOW_HEIGHT / perp_wall_dist);
+    
+    // Calcul du début et de la fin de la ligne
+    int draw_start = -line_height / 2 + WINDOW_HEIGHT / 2;
+    if (draw_start < 0)
+        draw_start = 0;
+    
+    int draw_end = line_height / 2 + WINDOW_HEIGHT / 2;
+    if (draw_end >= WINDOW_HEIGHT)
+        draw_end = WINDOW_HEIGHT - 1;
+    
+    // Calcul de wall_x (position exacte où le mur a été touché)
+    double wall_x;
+    if (side == 0)
+        wall_x = data->player.pos.y / data->tile_size + perp_wall_dist * dir_y;
+    else
+        wall_x = data->player.pos.x / data->tile_size + perp_wall_dist * dir_x;
+    wall_x -= floor(wall_x);
+    
+    // Choix de la texture selon le côté
+    t_texture *tex;
+    if (side == 0)
+    {
+        if (step_x > 0)
+            tex = &data->texture[EA]; // Mur Est
+        else
+            tex = &data->texture[WE]; // Mur Ouest
+    }
+    else
+    {
+        if (step_y > 0)
+            tex = &data->texture[SO]; // Mur Sud
+        else
+            tex = &data->texture[NO]; // Mur Nord
+    }
+    
+    // Coordonnée X dans la texture
+    int tex_x = (int)(wall_x * (double)tex->width);
+    
+    // Inverser tex_x selon le côté pour avoir la bonne orientation
+    if (side == 0 && dir_x < 0)
+        tex_x = tex->width - tex_x - 1;
+    if (side == 1 && dir_y > 0)
+        tex_x = tex->width - tex_x - 1;
+    
+    // Sécurité
+    if (tex_x < 0)
+        tex_x = 0;
+    if (tex_x >= tex->width)
+        tex_x = tex->width - 1;
+    
+    // Calcul du step et de la position de départ dans la texture
+    double step = 1.0 * tex->height / line_height;
+    double tex_pos = (draw_start - WINDOW_HEIGHT / 2 + line_height / 2) * step;
+    
+    // Dessiner la colonne de pixels
+    for (int y = draw_start; y < draw_end; y++)
+    {
+        int tex_y = (int)tex_pos & (tex->height - 1);
+        tex_pos += step;
+        
+        int color = tex->addr[tex_y * (tex->line_length / (tex->bpp / 8)) + tex_x];
+        my_put_pixel((t_vec2){i, y}, color, data);
+    }
 }
+
 
 void	draw_player(t_data *data)
 {

@@ -1,7 +1,7 @@
-NO ./textures/stairs.xpm
-SO ./textures/stairs.xpm
-WE ./textures/stairs.xpm
-EA ./textures/stairs.xpm
+NO ./textures/brick.xpm
+SO ./textures/brick.xpm
+WE ./textures/brick.xpm
+EA ./textures/brick.xpm
 
 11111111111
 10000111101
