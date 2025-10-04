@@ -4,7 +4,7 @@
 #include "struct.h"
 
 //map_parsing.c
-int		is_suffix_correct(char *str);
+int		is_suffix_correct(char *str, char *suffix);
 int		check_width(char **map);
 int		check_border(char **map);
 int		map_parser(int argc, char **argv, char ***map);

@@ -43,6 +43,14 @@ typedef struct s_data
 	t_player player;
 }			t_data;
 
+typedef struct s_texture
+{
+	char *NO;
+	char *SO;
+	char *WE;
+	char *EA;
+}				t_texture;
+
 typedef struct s_size
 {
 	size_t	x;

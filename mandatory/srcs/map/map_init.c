@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nofanizz <nofanizz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:02:30 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/09/07 13:42:05 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/10/02 16:21:22 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,16 +111,97 @@ int	update_map(char ***map, char **temp)
 	return (0);
 }
 
+int	get_texture(int fd, t_texture *texture)
+{
+	int	i;
+	char *temp;
+	size_t	length;
+
+	i = 0;
+	while(1)
+	{
+		temp = get_next_line(fd);
+		if(i == 0 && ft_strncmp(temp, "NO ", 3) == 0)
+		{
+			if(ft_strlen(temp) <= 3)
+				return(1);
+			length = ft_strlen(&temp[3]);
+			texture->NO = ft_strdup(&temp[3]);
+		}
+		if(i == 0 && ft_strncmp(temp, "NO ", 3) != 0)
+		{
+			free(temp);
+			return(1);
+		}
+		if(i == 1 && ft_strncmp(temp, "SO ", 3) == 0)
+		{
+			if(ft_strlen(temp) <= 3)
+				return(1);
+			length = ft_strlen(&temp[3]);
+			texture->SO = ft_strdup(&temp[3]);
+		}
+		if(i == 1 && ft_strncmp(temp, "SO ", 3) != 0)
+		{
+			free(temp);
+			return(1);
+		}
+		if(i == 2 && ft_strncmp(temp, "WE ", 3) == 0)
+		{
+			if(ft_strlen(temp) <= 3)
+				return(1);
+			length = ft_strlen(&temp[3]);
+			texture->WE = ft_strdup(&temp[3]);
+		}
+		if(i == 2 && ft_strncmp(temp, "WE ", 3) != 0)
+		{
+			free(temp);
+			return(1);
+		}
+		if(i == 3 && ft_strncmp(temp, "EA ", 3) == 0)
+		{
+			if(ft_strlen(temp) <= 3)
+				return(1);
+			length = ft_strlen(&temp[3]);
+			texture->EA = ft_strdup(&temp[3]);
+		}
+		if(i == 3 && ft_strncmp(temp, "EA ", 3) != 0)
+		{
+			free(temp);
+			return(1);
+		}
+		if(i > 3)
+			break;
+		free(temp);
+		i++;
+	}
+	return(0);
+}
+
+
 char	**get_map(char **argv)
 {
 	int		fd;
 	char	*temp;
 	char	**map;
+	t_texture texture;
 
 	map = NULL;
+	texture.NO = NULL;
+	texture.SO = NULL;
+	texture.WE = NULL;
+	texture.EA = NULL;
+	printf("DEBUT\n");
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 		return (NULL);
+	if (get_texture(fd, &texture) == 1)
+		return(NULL);
+	if(is_suffix_correct(argv[1], "mpx.") == 1)
+	printf("NO = %s\n", texture.NO);
+	printf("SO = %s\n", texture.SO);
+	printf("WE = %s\n", texture.WE);
+	printf("EA = %s\n", texture.EA);
+	printf("SLT\n");
 	while (1)
 	{
 		temp = get_next_line(fd);

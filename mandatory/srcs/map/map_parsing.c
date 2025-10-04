@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   map_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmarcucc <lucas@student.fr>                +#+  +:+       +#+        */
+/*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:05:38 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/09/09 11:15:16 by lmarcucc         ###   ########.fr       */
+/*   Updated: 2025/10/02 16:19:37 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	is_suffix_correct(char *str)
+int	is_suffix_correct(char *str, char *suffix)
 {
 	size_t		i;
 	size_t		j;
-	const char	suffix[4] = "buc.";
+	//const char	suffix[4] = "buc.";
 
 	i = 0;
 	j = 0;
@@ -104,9 +104,14 @@ int	map_parser(int argc, char **argv, char ***map)
 	*map = NULL;
 	if (argc != 2)
 		return (1);
-	if (is_suffix_correct(argv[1]) == 1)
+	if (is_suffix_correct(argv[1], "buc.") == 1)
 		return (1);
 	*map = get_map(argv);
+	if(!*map)
+	{
+		printf("RETURN UN TRUC NULL\n");
+		return(1);
+	}
 	display_tab(*map);
 	if (check_border(*map) == 1)
 	{

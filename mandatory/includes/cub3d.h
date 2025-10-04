@@ -26,8 +26,8 @@
 void	my_put_pixel(t_vec2 pos, int color, t_data *data);
 void	draw_square(t_vec2 pos, int size, int color, t_data *data);
 
-int	key_press(int keycode, t_player *player);
-int	key_release(int keycode, t_player *player);
+int	    key_press(int keycode, t_player *player);
+int	    key_release(int keycode, t_player *player);
 void	player_movement(t_player *player);
 
 int	close_window(t_data *data);
