@@ -113,4 +113,18 @@ typedef struct s_tex
 	double		tex_pos;
 }	t_tex;
 
+
+typedef struct s_track
+{
+	t_vec2 left;
+	t_vec2 right;
+}				t_track;
+
+typedef struct s_launch
+{
+	t_bool is_launched;
+	t_data *data;
+	t_track track;
+}				t_launch;
+
 #endif

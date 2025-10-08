@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 16:16:42 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/10/08 13:23:28 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/10/08 23:19:11 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	init_game(t_data *data)
 		&data->line_length, &data->endian);
 	data->tile_size = get_tile_size(data->map);
 	data->last_frame = get_time_ms();
+	init_menu(data);
 	init_texture(data->mlx, &data->texture[NO], data->texture[NO].path);
 	init_texture(data->mlx, &data->texture[SO], data->texture[SO].path);
 	init_texture(data->mlx, &data->texture[WE], data->texture[WE].path);
@@ -36,4 +37,11 @@ int	game_loop(t_data *data)
 	draw_square((t_vec2){WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2}, 10, 0xFFFFFF, data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 	return (0);
+}
+
+int init_menu(t_data *data)
+{
+	while(1)
+		display_menu(data);
+	game_loop(data);
 }

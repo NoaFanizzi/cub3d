@@ -30,6 +30,7 @@
 
 //main.c
 void	display_tab(char **map);
+void	display_menu(t_data *data);
 
 //game.c
 void	init_game(t_data *data);

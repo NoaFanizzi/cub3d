@@ -25,4 +25,6 @@ void	check_collisions(t_player *player, t_data *data, t_vec2f *old_pos, t_vec2f 
 t_bool	touch_wall(double px, double py, t_data *data);
 int     check_wall_hit(t_data *data, t_ray *ray);
 
+int init_menu(t_data *data);
+
 #endif
