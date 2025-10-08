@@ -9,7 +9,7 @@ WINDOWS_DIR = windows
 DRAWING_DIR	= drawing
 RAYCAST_DIR = raycast
 
-MAP_SRCS	= map_init.c map_parsing.c map_resizing.c map_textures_management.c map_utils.c
+MAP_SRCS	= map_init.c map_parsing.c map_resizing.c map_textures_management.c map_utils.c wall_management.c
 MAP_SRCS	:= $(addprefix $(MAP_DIR)/, $(MAP_SRCS))
 
 CLEAN_SRCS	= clean.c

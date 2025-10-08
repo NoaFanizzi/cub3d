@@ -19,6 +19,9 @@ void	init_side_dist_x(t_dda *dda, t_data *data, t_ray *ray);
 void	init_side_dist_y(t_dda *dda, t_dda2 *dda2, t_data *data, t_ray *ray);
 
 //wall_management.c
+int	    is_wall(double x, double y, t_data *data);
+int	    check_collisions_with_margins(double x, double y, double margin, t_data *data);
+void	check_collisions(t_player *player, t_data *data, t_vec2f *old_pos, t_vec2f *new_pos);
 t_bool	touch_wall(double px, double py, t_data *data);
 int     check_wall_hit(t_data *data, t_ray *ray);
 
