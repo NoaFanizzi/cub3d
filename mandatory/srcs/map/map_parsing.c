@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:05:38 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/10/08 13:42:21 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/10/08 18:49:32 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,7 @@ int	map_parser(int argc, char **argv, char ***map, t_data *data)
 	*map = get_map(argv, data);
 	if(!*map)
 		return(1);
-	printf("---------------MAP AFTER GET MAP---------------\n\n\n");
 	display_tab(*map);
-	printf("---------------------END-----------------------\n\n\n");
 	if (check_border(*map) == 1)
 	{
 		free_tab(map);

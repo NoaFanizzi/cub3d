@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 16:15:11 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/10/08 16:16:16 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/10/08 18:49:47 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@ int	is_wall(double x, double y, t_data *data)
 
 	map_element_x = x / data->tile_size;
 	map_element_y = y / data->tile_size;
-	printf("map_element_x = %d\n", map_element_x);
-	printf("map_element_y = %d\n", map_element_y);
-	printf("data->map[map_element_y][map_element_x] = %c\n\n\n", data->map[map_element_y][map_element_x]);
 	if(map_element_x < 0 || map_element_y < 0)
 		return(1);
 	if(!data->map[map_element_y] || !data->map[map_element_y][map_element_x])

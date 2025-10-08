@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:02:30 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/10/08 14:01:17 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/10/08 18:49:29 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	update_map(char ***map, char **temp)
 
 	if (!*temp)
 	{
-		printf("LAAAAA\n");
 		add_last_line(map);
 		return (0);
 	}
@@ -34,9 +33,7 @@ int	update_map(char ***map, char **temp)
 	}
 	else
 	{
-		printf("ICI\n");
 		line_full_x = ft_calloc(ft_strlen(trimmed_line) + 3, sizeof(char));
-		printf("trimmed line = %s\n", trimmed_line);
 		load_delimitation_line(&line_full_x, ft_strlen(trimmed_line));
 		resize_map(map, &temp, &line_full_x, 0);
 		free(line_full_x);
@@ -99,9 +96,7 @@ char	**get_map(char **argv, t_data *data)
 		clean_texture(data);
 		return(NULL);
 	}
-	printf("----------------------map just before GNL----------------------\n\n\n");
 	display_tab(map);
-	printf("------------------------------end------------------------------\n\n\n\n\n");
 	display_tab(map);
 	while (1)
 	{
@@ -111,11 +106,8 @@ char	**get_map(char **argv, t_data *data)
 			free(temp);
 			continue;
 		}
-		printf("temp = %s\n", temp);
 		update_map(&map, &temp);
-		printf("-----------------------display_map_in_gnl-------------------------\n\n\n");
 		display_tab(map);
-		printf("-----------------------END-----------------------\n\n\n");
 		if (!temp)
 			break ;
 		free(temp);

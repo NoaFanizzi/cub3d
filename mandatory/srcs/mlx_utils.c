@@ -3,18 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmarcucc <lucas@student.fr>                +#+  +:+       +#+        */
+/*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:29:48 by lmarcucc          #+#    #+#             */
-/*   Updated: 2025/09/11 10:12:55 by lmarcucc         ###   ########.fr       */
+/*   Updated: 2025/10/08 18:48:56 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+void free_textures(t_data *data)
+{
+    int i;
+    
+    i = 0;
+    while (i < NB_TEXTURES)
+    {
+        if (data->texture[i].path)
+            free(data->texture[i].path);
+        if (data->texture[i].img)
+            mlx_destroy_image(data->mlx, data->texture[i].img);
+        i++;
+    }
+}
+
+
 int	close_window(t_data *data)
 {
 	free_tab(&data->map);
+	free_textures(data);
 	mlx_destroy_image(data->mlx, data->img);
 	mlx_destroy_window(data->mlx, data->win);
 	mlx_destroy_display(data->mlx);
