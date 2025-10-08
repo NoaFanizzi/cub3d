@@ -1,7 +1,7 @@
-NO ./textures/brick.xpm
-SO ./textures/planks.xpm
-WE ./textures/sky.xpm
-EA ./textures/brick.xpm
+NO ./textures/windows.xpm
+SO ./textures/windows.xpm
+WE ./textures/windows.xpm
+EA ./textures/windows.xpm
 
 1111111111
 10000111101

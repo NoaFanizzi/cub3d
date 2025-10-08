@@ -23,7 +23,6 @@ void	get_map_size(t_size *size, char ***map);
 void	get_tab_length(char ***tab, size_t *length);
 int		get_last_line_pos(char ***map);
 int		get_last_line_length(char ***map);
-void	replace_char(char ***map, char old, char new);
 
 //map_drawing.c
 int		get_tile_color(char c);

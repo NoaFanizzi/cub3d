@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 19:38:48 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/10/04 09:24:53 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/10/08 21:17:18 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,17 +68,25 @@ int	get_last_line_length(char ***map)
 	return (length);
 }
 
-void	replace_char(char ***map, char old, char new)
+void	replace_char(char ***map, char old, char new, t_data *data)
 {
 	size_t	i;
 	size_t	j;
+	size_t tp_positionned;
 
 	i = 0;
+	tp_positionned = 0;
 	while ((*map)[i])
 	{
 		j = 0;
 		while ((*map)[i][j])
 		{
+			if((*map)[i][j] == '1' && tp_positionned == 0)
+			{
+				data->tp_pos.y = i;
+				data->tp_pos.x = j;
+				tp_positionned = 1;
+			}
 			if ((*map)[i][j] == old)
 				(*map)[i][j] = new;
 			j++;

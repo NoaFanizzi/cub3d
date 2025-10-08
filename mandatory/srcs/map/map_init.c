@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:02:30 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/10/08 18:49:29 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/10/08 21:18:04 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ char	**get_map(char **argv, t_data *data)
 		return(NULL);
 	}
 	display_tab(map);
-	display_tab(map);
+	//display_tab(map);
 	while (1)
 	{
 		temp = get_next_line(fd);
@@ -113,6 +113,6 @@ char	**get_map(char **argv, t_data *data)
 		free(temp);
 	}
 	close(fd);
-	replace_char(&map, ' ', 'X');
+	replace_char(&map, ' ', 'X', data);
 	return (map);
 }

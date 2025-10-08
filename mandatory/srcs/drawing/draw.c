@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 11:13:41 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/10/04 17:19:52 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/10/08 21:36:09 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ void	draw_line(t_data *data, double ray_angle, int i)
 	calc_tex_x(&tex, &wall, &ray, &dda2);
 	init_tex_render(&tex, &wall);
 	draw_wall_column(&tex, &wall, data, i);
+	(void)i;
 }
 
 void	draw_player(t_data *data)
@@ -190,8 +191,8 @@ void	draw_floor_ceiling(t_data *data)
 	int		floor_color;
 	int		half_screen;
 
-	ceiling_color = 0x57c7d4;
-	floor_color = 0x83bd6f;
+	ceiling_color = 0x000b15;
+	floor_color = 0x2a2a2a;
 	pixels = (int *)data->addr;
 	half_screen = WINDOW_HEIGHT * WINDOW_WIDTH / 2;
 	i = 0;

@@ -63,6 +63,7 @@ typedef struct s_data
 	long	last_frame;
 	t_player player;
 	t_texture   texture[NB_TEXTURES];
+	t_vec2 tp_pos;
 }			t_data;
 
 typedef struct s_size

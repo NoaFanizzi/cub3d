@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 12:31:34 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/10/08 18:49:21 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/10/08 21:36:57 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,13 @@ int	main(int argc, char **argv)
 
 	(void)argv;
 	(void)argc;
+
 	if (map_parser(argc, argv, &data.map, &data) == 1)
 	{
 		if (argc == 1)
-			ft_putendl_fd("No map sended !", 2);
+			ft_putendl_fd("No map sent !", 2);
 		else
-			ft_putendl_fd("Invalid map sended !", 2);
+			ft_putendl_fd("Invalid map sent !", 2);
 		return (1);
 	}
 	display_tab(data.map);
