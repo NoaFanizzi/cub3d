@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 15:19:37 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/10/08 15:19:24 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/10/08 16:11:52 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ int	is_wall(double x, double y, t_data *data)
 
 int	check_collisions_with_margins(double x, double y, double margin, t_data *data)
 {
-	if(is_wall(x + margin, y,  data) == 1)
+	if(is_wall(x + margin, y + margin,  data) == 1)
 		return(1);
-	if(is_wall(x - margin, y, data) == 1)
+	if(is_wall(x - margin, y + margin, data) == 1)
 		return(1);
-	if(is_wall(x, y + margin, data) == 1)
+	if(is_wall(x + margin, y - margin, data) == 1)
 		return(1);
-	if(is_wall(x, y - margin, data) == 1)
+	if(is_wall(x - margin, y - margin, data) == 1)
 		return(1);
 	return(0);
 }
@@ -58,7 +58,7 @@ void	check_collisions(t_player *player, t_data *data, t_vec2f *old_pos, t_vec2f 
 			player->pos.x = old_pos->x;
 			return;
 		}
-		if(check_collisions_with_margins(new_pos->x, old_pos->y, margin, data) == 1)
+		if(check_collisions_with_margins(new_pos->x, old_pos->y, margin, data) == 0)
 		{
 			player->pos.y = old_pos->y;
 			return;		
