@@ -14,8 +14,8 @@
 #include "map.h"
 #include "mlx.h"
 
-#define WINDOW_WIDTH 1920
-#define WINDOW_HEIGHT 1080
+#define WINDOW_WIDTH 1280
+#define WINDOW_HEIGHT 720
 #define FPS 144
 #define FOV 100
 
@@ -41,7 +41,7 @@ void	my_put_pixel(t_vec2 pos, int color, t_data *data);
 void	draw_square(t_vec2 pos, int size, int color, t_data *data);
 
 //player_movement.c
-void	player_movement(t_player *player);
+void	player_movement(t_player *player, t_data *data);
 int	    key_press(int keycode, t_player *player);
 int     key_release(int keycode, t_player *player);
 
