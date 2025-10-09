@@ -21,12 +21,24 @@
 
 #define PI 3.14159265359
 
-#define W 119
-#define A 97
+//AZERTY
+
+#define W 122
+#define A 113
 #define S 115
 #define D 100
 #define LEFT 65361
 #define RIGHT 65363
+
+
+//QWERTY
+
+// #define W 119
+// #define A 97
+// #define S 115
+// #define D 100
+// #define LEFT 65361
+// #define RIGHT 65363
 
 //main.c
 void	display_tab(char **map);

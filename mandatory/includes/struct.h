@@ -61,6 +61,7 @@ typedef struct s_data
 	char	**map;
 	int		tile_size;
 	long	last_frame;
+	void *pannel_img[4];
 	t_player player;
 	t_texture   texture[NB_TEXTURES];
 	t_vec2 tp_pos;

@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 12:31:34 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/10/08 23:24:11 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/10/09 18:34:58 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,78 +51,91 @@ int	get_pannel_color(t_track *track, t_vec2 pos)
 	return(0x1A2F4D);
 }
 
-void	load_pannel_dimensions(t_track track[4])
+void	load_pannel_dimensions(t_track track[5])
 {
 	int center;
 	size_t	i;
 	double	saved_scale;
 
-	i = 0;
+	i = 1;
 	saved_scale = 0.85;
-	while(i < 4)
+	float height = WINDOW_HEIGHT * 0.05; // épaisseur fixe 5% de la fenêtre
+
+	while (i < 4)
 	{
 		center = WINDOW_WIDTH / 2;
-		track[0].left.x = center - (WINDOW_WIDTH / 12);
-		track[0].right.x = center + (WINDOW_WIDTH / 12);
+		track[i].left.x = center - (WINDOW_WIDTH / 12);
+		track[i].right.x = center + (WINDOW_WIDTH / 12);
+
 		center = WINDOW_HEIGHT * saved_scale;
-		saved_scale -= 0.10;
+		saved_scale = saved_scale - 0.10;
 		printf("saved_scale= %f\n", saved_scale);
-		track[0].left.y = center * 0.96875;
-		track[0].right.y = center * 1.03125; // la plage est de 0.03125
+
+		track[i].left.y = center - (height / 2);
+		track[i].right.y = center + (height / 2);
+
 		i++;
 	}
-	center = WINDOW_WIDTH / 2;
-	printf("center.y = %d\n", center);
-	track[0].left.x = center - (WINDOW_WIDTH / 12);
-	track[0].right.x = center + (WINDOW_WIDTH / 12);
-	//center = (WINDOW_HEIGHT / 4) / 2;
-	center = WINDOW_HEIGHT * 0.85;
-	printf("center.x = %d\n", center);
-	track[0].left.y = center * 0.96875;
-	track[0].right.y = center * 1.03125; // la plage est de 0.03125
-
-	printf("track.left.y = %d\n", track[0].left.y);
-	printf("track.right.y = %d\n", track[0].right.y);
-	printf("track.left.x = %d\n", track[0].left.x);
-	printf("track.right.x = %d\n", track[0].right.x);
-
-	center = WINDOW_WIDTH / 2;
-	track[1].left.x = center - (WINDOW_WIDTH / 12);
-	track[1].right.x = center + (WINDOW_WIDTH / 12); //- (WINDOW_HEIGHT * 0.85)
-	center = WINDOW_HEIGHT * 0.75;
-	track[1].left.y = center * 0.96875;
-	track[1].right.y = center * 1.03125;
 }
 
-void	display_menu(t_data *data)
+void	load_title_dimensions(t_track track[5])
 {
-	t_vec2 pos;
-	int 	color;
-	int		center;
-	t_track		track[4];
-	//int		pixels;
+	int center;
+	
+	center = WINDOW_WIDTH / 2;
+	track[0].left.x = center - (WINDOW_WIDTH / 6);
+	track[0].right.x = center + (WINDOW_WIDTH / 6);
 
-	pos.y = 0;
-	color = 0x1A2F4D;
-	center = 0;
-
-	load_pannel_dimensions(track);
-	//exit(0);
-	while(pos.y < WINDOW_HEIGHT)
-	{
-		pos.x = 0;
-		while(pos.x < WINDOW_WIDTH)
-		{
-			color = get_pannel_color(track, pos);
-			my_put_pixel(pos, color, data);
-			pos.x++;
-		}
-		pos.y++;
-	}
-	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
-	while(1)
-		center++;
+	center = WINDOW_HEIGHT / 4;
+	track[0].left.y = center - (WINDOW_HEIGHT / 8);
+	track[0].right.y = center + (WINDOW_HEIGHT / 8);
+	return;
 }
+
+void load_menu_texture(t_data *data)
+{
+    int width;
+    int height;
+
+    data->pannel_img[1] = mlx_xpm_file_to_image(data->mlx, "textures/pannels/menu.xpm", &width, &height);
+    if (!data->pannel_img[1])
+    {
+        fprintf(stderr, "Failed to load pannel image 1\n");
+        exit(EXIT_FAILURE);
+    }
+    data->pannel_img[2] = mlx_xpm_file_to_image(data->mlx, "textures/pannels/menu.xpm", &width, &height);
+    if (!data->pannel_img[2])
+    {
+        fprintf(stderr, "Failed to load pannel image 2\n");
+        exit(EXIT_FAILURE);
+    }
+    data->pannel_img[3] = mlx_xpm_file_to_image(data->mlx, "textures/pannels/menu.xpm", &width, &height);
+    if (!data->pannel_img[3])
+    {
+        fprintf(stderr, "Failed to load pannel image 3\n");
+        exit(EXIT_FAILURE);
+    }
+}
+
+
+void display_menu(t_data *data)
+{
+    t_track track[5];
+
+    load_pannel_dimensions(track);
+    load_title_dimensions(track);
+    load_menu_texture(data);
+
+    int i = 1;
+    while (i < 4)
+    {
+        mlx_put_image_to_window(data->mlx, data->win,
+            data->pannel_img[i], track[i].left.x + ((track[i].right.x - track[i].left.x) * 0.5), 
+			track[i].left.y + ((track[i].right.y - track[i].left.y) * 0.5));
+        i++;
+    }
+}
+
 
 int	main(int argc, char **argv)
 {
