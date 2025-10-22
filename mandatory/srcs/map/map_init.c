@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "clean.h"
 
 int	update_map(char ***map, char **temp)
 {
@@ -41,8 +40,6 @@ int	update_map(char ***map, char **temp)
 		if (*temp)
 			free_tab(&temp);
 	}
-	if (*map)
-		free_tab(map);
 	*map = new_map;
 	wipe(&trimmed_line);
 	return (0);

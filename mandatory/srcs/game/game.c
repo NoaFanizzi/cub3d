@@ -38,10 +38,3 @@ int	game_loop(t_data *data)
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 	return (0);
 }
-
-int init_menu(t_data *data)
-{
-	while(1)
-		display_menu(data);
-	game_loop(data);
-}

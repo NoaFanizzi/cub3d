@@ -27,10 +27,9 @@ void free_textures(t_data *data)
     }
 }
 
-
 int	close_window(t_data *data)
 {
-	free_tab(&data->map);
+	ft_free_split(data->map);
 	free_textures(data);
 	mlx_destroy_image(data->mlx, data->img);
 	mlx_destroy_window(data->mlx, data->win);

@@ -34,6 +34,4 @@ int         get_last_line_pos(char ***map);
 int         get_last_line_length(char ***map);
 void	    replace_char(char ***map, char old, char new, t_data *data);
 
-
-
 #endif

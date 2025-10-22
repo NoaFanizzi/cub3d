@@ -8,7 +8,6 @@
 #include <sys/time.h>
 #include "parsing.h"
 #include "struct.h"
-#include "clean.h"
 #include "drawing.h"
 #include "raycast.h"
 #include "map.h"
@@ -57,5 +56,10 @@ void	draw_square(t_vec2 pos, int size, int color, t_data *data);
 void	player_movement(t_player *player, t_data *data);
 int	    key_press(int keycode, t_player *player);
 int     key_release(int keycode, t_player *player);
+
+//clean
+void    clean_texture(t_data *data);
+void    wipe(char **str);
+void	free_tab(char ***tab);
 
 #endif

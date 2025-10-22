@@ -2,8 +2,6 @@
 # define PARSING_H
 
 #include "struct.h"
-#include "cub3d.h"
-#include "drawing.h"
 
 //map_parsing.c
 int		is_suffix_correct(char *str, char *suffix);
@@ -43,6 +41,5 @@ int		close_window(t_data *data);
 int		get_map_width(t_data *data);
 int		get_map_height(t_data *data);
 int		init_mlx(t_data *data);
-
 
 # endif
