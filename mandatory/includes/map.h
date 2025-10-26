@@ -22,7 +22,7 @@ void	    resize_map(char ***map, char ***new_map, char **temp, int is_last);
 
 //map_textures_management.c
 void        init_texture(void *mlx_ptr, t_texture *texture, char *file_path);
-t_texture	*select_texture(t_data *data, t_dda *dda, t_dda2 *dda2);
+t_texture	*select_texture(t_data *data, t_dda *dda);
 void	    init_tex_render(t_tex *tex, t_wall *wall);
 int         parse_textures(int fd, t_data *data);
 

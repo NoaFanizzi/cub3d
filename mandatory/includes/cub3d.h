@@ -16,7 +16,7 @@
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
 #define FPS 144
-#define FOV 100
+#define FOV 50
 
 #define PI 3.14159265359
 

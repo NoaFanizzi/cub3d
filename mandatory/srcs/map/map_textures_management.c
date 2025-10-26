@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 08:33:12 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/10/26 11:52:16 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/10/26 14:14:43 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ void    init_texture(void *mlx_ptr, t_texture *texture, char *file_path)
     texture->height = height;
 }
 
-t_texture	*select_texture(t_data *data, t_dda *dda, t_dda2 *dda2)
+t_texture	*select_texture(t_data *data, t_dda *dda)
 {
-	if (dda2->side == 0)
+	if (dda->side == 0)
 	{
 		if (dda->step_x > 0)
 			return (&data->texture[EA]);
@@ -57,7 +57,7 @@ t_texture	*select_texture(t_data *data, t_dda *dda, t_dda2 *dda2)
 	}
 	else
 	{
-		if (dda2->step_y > 0)
+		if (dda->step_y > 0)
 			return (&data->texture[SO]);
 		else
 			return (&data->texture[NO]);

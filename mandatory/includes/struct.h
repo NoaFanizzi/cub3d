@@ -81,21 +81,16 @@ typedef struct s_ray
 	int		map_y;
 }	t_ray;
 
-typedef struct s_dda
-{
-	double	delta_dist_x;
-	double	delta_dist_y;
-	double	side_dist_x;
-	double	side_dist_y;
-	int		step_x;
-}	t_dda;
-
-typedef struct s_dda2
-{
-	int		step_y;
-	int		hit;
-	int		side;
-}	t_dda2;
+typedef struct s_dda {
+    double delta_dist_x;
+    double delta_dist_y;
+    double side_dist_x;
+    double side_dist_y;
+    int step_x;
+    int step_y;
+    int side;
+    int hit;
+} t_dda;
 
 typedef struct s_wall
 {

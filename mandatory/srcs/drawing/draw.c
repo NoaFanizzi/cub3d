@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 11:13:41 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/10/26 11:53:05 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/10/26 14:51:58 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,34 @@ t_vec2f	get_start_pos(t_data *data)
 	return ((t_vec2f){0, 0});
 }
 
+int mouse_move(int x, int y, t_data *data)
+{
+    static int last_x = -1;
+    int delta_x;
+    double sensitivity;
+    
+    if (last_x == -1)
+    {
+        last_x = x;
+        return (0);
+    }
+    delta_x = x - last_x;
+    sensitivity = 0.005;
+    data->player.angle += delta_x * sensitivity;
+    if (data->player.angle < 0)
+        data->player.angle += 2 * PI;
+    if (data->player.angle >= 2 * PI)
+        data->player.angle -= 2 * PI;
+    last_x = x;
+    if (x < 100 || x > WINDOW_WIDTH - 100)
+    {
+        mlx_mouse_move(data->mlx, data->win, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
+        last_x = WINDOW_WIDTH / 2;
+    }
+    (void)y;
+    return (0);
+}
+
 void	init_player(t_data *data)
 {
 	data->player.pos = get_start_pos(data);
@@ -71,6 +99,8 @@ void	init_player(t_data *data)
 	data->player.right_rot = false;
 	mlx_hook(data->win, 2, 1L<<0, key_press, &data->player);
 	mlx_hook(data->win, 3, 1L<<1, key_release, &data->player);
+	mlx_hook(data->win, 6, 1L<<6, mouse_move, data);
+	mlx_mouse_hide(data->mlx, data->win);
 }
 
 long	get_time_ms(void)
@@ -128,27 +158,32 @@ void	draw_wall_column(t_tex *tex, t_wall *wall, t_data *data, int i)
 	}
 }
 
-void	draw_line(t_data *data, double ray_angle, int i)
+void draw_line(t_data *data, double ray_angle, int i)
 {
-	t_ray	ray;
-	t_dda	dda;
-	t_dda2	dda2;
-	t_wall	wall;
-	t_tex	tex;
-
-	init_ray(&ray, data, ray_angle);
-	init_dda(&dda, &ray);
-	init_side_dist_x(&dda, data, &ray);
-	init_side_dist_y(&dda, &dda2, data, &ray);
-	perform_dda(&dda, &ray, &dda2, data);
-	calc_wall_dist(&wall, &dda, &dda2);
-	calc_line_height(&wall);
-	calc_wall_x(&wall, data, &ray, &dda, &dda2);
-	tex.tex = select_texture(data, &dda, &dda2);
-	calc_tex_x(&tex, &wall, &ray, &dda2);
-	init_tex_render(&tex, &wall);
-	draw_wall_column(&tex, &wall, data, i);
-	(void)i;
+    t_ray ray;
+    t_dda dda;
+    t_wall wall;
+    t_tex tex;
+    double inv_tile_size;
+    double player_grid_x;
+    double player_grid_y;
+    
+    inv_tile_size = 1.0 / data->tile_size;
+    player_grid_x = data->player.pos.x * inv_tile_size;
+    player_grid_y = data->player.pos.y * inv_tile_size;
+    
+    init_ray(&ray, data, ray_angle, inv_tile_size);
+    init_dda(&dda, &ray);
+    init_side_dist_x(&dda, &ray, player_grid_x);
+    init_side_dist_y(&dda, &ray, player_grid_y);
+    perform_dda(&dda, &ray, data);
+    calc_wall_dist(&wall, &dda);
+    calc_line_height(&wall);
+    calc_wall_x(&wall, &ray, &dda, player_grid_x, player_grid_y);
+    tex.tex = select_texture(data, &dda);
+    calc_tex_x(&tex, &wall, &ray, &dda);
+    init_tex_render(&tex, &wall);
+    draw_wall_column(&tex, &wall, data, i);
 }
 
 void	draw_player(t_data *data)
