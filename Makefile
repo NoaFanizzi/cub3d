@@ -6,7 +6,7 @@
 #    By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 13:45:35 by nofanizz          #+#    #+#              #
-#    Updated: 2025/10/04 08:29:00 by nofanizz         ###   ########.fr        #
+#    Updated: 2025/10/26 15:13:19 by nofanizz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,12 +20,10 @@ OBJ_DIR = .obj
 DEP_DIR = .dep
 LIBFT_DIR = libft
 MLX_DIR = minilibx-linux
-# ou MLX_DIR = mlx si tu utilises la version macOS
 
 LIBFT       = $(LIBFT_DIR)/libft.a
 MLX_LIB     = $(MLX_DIR)/libmlx.a
 
-# Détection de l'OS pour les flags appropriés
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
     MLX_FLAGS = -lmlx -lXext -lX11 -lm
@@ -38,6 +36,10 @@ endif
 
 CC      = cc
 C_FLAGS = -g -Wall -Wextra -Werror
+
+# Flags d'optimisation pour la performance
+SPEED_FLAGS = -O3 -march=native -mtune=native -flto -ffast-math
+
 D_FLAGS = -MMD -MP -MF $(DEP_DIR)/$*.d
 I_FLAGS = -I$(INC_DIR) -I$(LIBFT_DIR) -I$(MLX_DIR)
 L_FLAGS = -L$(LIBFT_DIR) -lft -L$(MLX_DIR) $(MLX_FLAGS)
@@ -57,6 +59,10 @@ $(NAME): $(OBJS) $(LIBFT) $(MLX_LIB)
 	@echo "Creating $(NAME)\n"
 	@$(CF) $^ $(L_FLAGS) -o $@
 	@echo "Program Created \n"
+
+speed: C_FLAGS = -O3 -march=native -mtune=native -flto -ffast-math -Wall -Wextra -Werror
+speed: fclean $(NAME)
+	@echo "Optimized build completed with performance flags\n"
 
 bonus: $(NAME)
 
@@ -94,5 +100,5 @@ re: fclean all
 
 -include $(DEPS)
 
-.PHONY: all clean fclean re debug help
+.PHONY: all clean fclean re speed bonus help
 FORCE:

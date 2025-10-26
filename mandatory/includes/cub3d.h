@@ -13,8 +13,14 @@
 #include "map.h"
 #include "mlx.h"
 
+//DELL
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
+
+// //MAC
+// #define WINDOW_WIDTH 3840
+// #define WINDOW_HEIGHT 2160
+
 #define FPS 144
 #define FOV 50
 
