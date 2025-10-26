@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 16:16:42 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/10/09 20:45:29 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/10/26 11:32:47 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,46 @@ void	init_game(t_data *data)
 	init_player(data);
 }
 
+long int	get_current_time(void)
+{
+	struct timeval	time;
+	long int		total;
+
+	gettimeofday(&time, NULL);
+	total = time.tv_sec * 1000;
+	total += time.tv_usec / 1000;
+	return (total);
+}
+
+void	fps_counter(t_data *data, long int start_time)
+{
+	double result;
+	char *temp;
+	char *fps_count;
+	int x;
+	int y;
+	
+	result = (get_current_time() - start_time);
+	result = (1 / result) * 1000;
+	x = WINDOW_WIDTH - (WINDOW_WIDTH / 5);
+	y = WINDOW_HEIGHT / 5;
+	temp = ft_itoa(result);
+	fps_count = ft_strjoin("FPS : ", temp);
+	mlx_string_put(data->mlx, data->win, x, y, 0xFFFFFF, fps_count);
+	free(temp);
+	free(fps_count);
+}
+
 int	game_loop(t_data *data)
 {
+	long int start_time;
+
+	start_time = get_current_time();
 	player_movement(&data->player, data);
 	draw_floor_ceiling(data);
 	draw_player(data);
 	draw_square((t_vec2){WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2}, 10, 0xFFFFFF, data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
+	fps_counter(data, start_time);
 	return (0);
 }

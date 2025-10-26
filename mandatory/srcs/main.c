@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 12:31:34 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/10/09 18:34:58 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/10/26 11:23:47 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	main(int argc, char **argv)
 			ft_putendl_fd("Invalid map sent !", 2);
 		return (1);
 	}
-	display_tab(data.map);
+	//display_tab(data.map);
 	init_game(&data);
 	mlx_loop_hook(data.mlx, game_loop, &data);
 	mlx_hook(data.win, 17, 0, close_window, &data);

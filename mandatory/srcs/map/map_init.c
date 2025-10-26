@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:02:30 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/10/08 21:18:04 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/10/26 11:23:56 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,13 @@ char	**get_map(char **argv, t_data *data)
 		return (NULL);
 	if (parse_textures(fd, data) == 1)
 		return(NULL);
-	display_texture_data(data);
+	//display_texture_data(data);
 	if(is_map_suffix_correct(data, "mpx.") == 1)
 	{
 		clean_texture(data);
 		return(NULL);
 	}
-	display_tab(map);
+	//display_tab(map);
 	//display_tab(map);
 	while (1)
 	{
@@ -104,7 +104,7 @@ char	**get_map(char **argv, t_data *data)
 			continue;
 		}
 		update_map(&map, &temp);
-		display_tab(map);
+		//display_tab(map);
 		if (!temp)
 			break ;
 		free(temp);

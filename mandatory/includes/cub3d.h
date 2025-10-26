@@ -13,8 +13,8 @@
 #include "map.h"
 #include "mlx.h"
 
-#define WINDOW_WIDTH 1920
-#define WINDOW_HEIGHT 1080
+#define WINDOW_WIDTH 1280
+#define WINDOW_HEIGHT 720
 #define FPS 144
 #define FOV 100
 
@@ -22,22 +22,22 @@
 
 //AZERTY
 
-#define W 122
-#define A 113
-#define S 115
-#define D 100
-#define LEFT 65361
-#define RIGHT 65363
-
-
-//QWERTY
-
-// #define W 119
-// #define A 97
+// #define W 122
+// #define A 113
 // #define S 115
 // #define D 100
 // #define LEFT 65361
 // #define RIGHT 65363
+
+
+//QWERTY
+
+#define W 119
+#define A 97
+#define S 115
+#define D 100
+#define LEFT 65361
+#define RIGHT 65363
 
 //main.c
 void	display_tab(char **map);
