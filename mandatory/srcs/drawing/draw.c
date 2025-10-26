@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 11:13:41 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/10/08 21:36:09 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/10/26 11:53:05 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void	draw_wall_column(t_tex *tex, t_wall *wall, t_data *data, int i)
 	{
 		tex_y = (int)tex->tex_pos;
 		tex->tex_pos += tex->step;
-		offset = tex_y * (tex->tex->line_length / (tex->tex->bpp / 8));
+		offset = tex_y * (tex->tex->line_length / (tex->tex->bpp * 0.125));
 		color = tex->tex->addr[offset + tex->tex_x];
 		my_put_pixel((t_vec2){i, y}, color, data);
 		y++;
@@ -158,7 +158,7 @@ void	draw_player(t_data *data)
 	int		i;
 
 	pixel_step = FOV * (PI / 180) / WINDOW_WIDTH;
-	ray_angle = data->player.angle - (FOV * (PI / 180) / 2);
+	ray_angle = data->player.angle - (FOV * (PI / 180) *0.5);
 	i = 0;
 	while (i < WINDOW_WIDTH)
 	{

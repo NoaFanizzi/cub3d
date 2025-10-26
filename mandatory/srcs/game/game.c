@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 16:16:42 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/10/26 11:32:47 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/10/26 11:53:42 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	game_loop(t_data *data)
 	player_movement(&data->player, data);
 	draw_floor_ceiling(data);
 	draw_player(data);
-	draw_square((t_vec2){WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2}, 10, 0xFFFFFF, data);
+	draw_square((t_vec2){WINDOW_WIDTH * 0.5, WINDOW_HEIGHT * 0.5}, 10, 0xFFFFFF, data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 	fps_counter(data, start_time);
 	return (0);
