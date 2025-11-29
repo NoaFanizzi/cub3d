@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/29 15:47:17 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/11/29 17:19:30 by nofanizz         ###   ########.fr       */
+/*   Created: 2025/11/29 16:45:38 by nofanizz          #+#    #+#             */
+/*   Updated: 2025/11/29 17:13:57 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-int main(int argc, char **argv)
+int	get_last_line_pos(char ***map)
 {
-	t_game	game;
+	size_t	i;
 
-	if (map_parser(argc, argv, &game.cfg.map, &game.cfg) == 1)
-	{
-		if (argc == 1)
-			ft_putstr_fd("No map sent !\n", 2);
-		else
-			ft_putstr_fd("Invalid map sent !\n", 2);
-		return (1);
-	}
-	if (!init_player(&game) || !init_mlx(&game.mlx_cfg))
-	{
-		//free
-		return (1);
-	}
-	mlx_loop(game.mlx_cfg.mlx);
-	return 0;
+	i = 0;
+	while ((*map)[i + 1])
+		i++;
+	return (i);
+}
+
+int	get_last_line_length(char ***map)
+{
+	size_t	pos;
+	size_t	length;
+
+	length = 0;
+	pos = get_last_line_pos(map);
+	length = ft_strlen((*map)[pos]);
+	return (length);
 }
