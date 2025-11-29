@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 15:01:53 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/11/29 17:13:51 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/11/29 20:14:23 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,70 @@ int	check_and_add_texture(char *temp, const char *prefix, char **dest)
 	return (0);
 }
 
+int parse_color_line(char *line, char identifier, int *color_array)
+{
+	char	**colors;
+	size_t	i;
+
+	if (line[0] != identifier || line[1] != ' ')
+	{
+		ft_wipe(&line);
+		return (1);
+	}
+	colors = ft_split(&line[2], ',');
+	ft_wipe(&line);
+	if (!colors)
+		return (1);
+	i = 0;
+	while (colors[i])
+		i++;
+	if (i != 3)
+	{
+		free_tab(&colors);
+		return (1);
+	}
+	i = 0;
+	while (colors[i])
+	{
+		color_array[i] = ft_atoi(colors[i]);
+		i++;
+	}
+	free_tab(&colors);
+	return (0);
+}
+
+int parse_colors(int fd, t_config *config)
+{
+	char	*temp;
+
+	temp = get_next_line(fd);
+	while(is_only_space(temp) == 0)
+	{
+		ft_wipe(&temp);
+		temp = get_next_line(fd);
+	}
+	printf("Color line 1: %s", temp);
+	if (!temp || parse_color_line(temp, 'F', config->floor))
+		return (1);
+	//ft_wipe(&temp);
+	temp = get_next_line(fd);
+	while(is_only_space(temp) == 0)
+	{
+		ft_wipe(&temp);
+		temp = get_next_line(fd);
+	}
+	if (!temp || parse_color_line(temp, 'C', config->ceiling))
+		return (1);
+	//ft_wipe(&temp);
+	return (0);
+}
+
+void	ft_display_colors(t_config *config)
+{
+	printf("Floor color: R=%d, G=%d, B=%d\n", config->floor[0], config->floor[1], config->floor[2]);
+	printf("Ceiling color: R=%d, G=%d, B=%d\n", config->ceiling[0], config->ceiling[1], config->ceiling[2]);
+}
+
 char	**get_map(char **argv, t_config *config)
 {
 	int		fd;
@@ -189,12 +253,19 @@ char	**get_map(char **argv, t_config *config)
 		return (NULL);
 	if (parse_textures(fd, config) == 1)
 		return(NULL);
+	if (parse_colors(fd, config) == 1)
+	{
+		printf("AAAAAAA\n");
+		return(NULL);
+	}
+	ft_display_colors(config);
 	//display_texture_data(data);
 	if(is_map_suffix_correct(config, "mpx.") == 1)
 	{
 		clean_texture(config);
 		return(NULL);
 	}
+	printf("SLT\n");
 	//display_tab(map);
 	//display_tab(map);
 	while (1)

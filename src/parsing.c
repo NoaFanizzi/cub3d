@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 14:58:49 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/11/29 16:44:38 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/11/29 20:10:14 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,38 @@ int	parse_textures(int fd, t_config *config)
 	char	*temp;
 
 	temp = get_next_line(fd);
+	while(is_only_space(temp) == 0)
+	{
+		free(temp);
+		temp = get_next_line(fd);
+	}
 	if (!temp || check_and_add_texture(temp, "NO ", &config->tex_no))
 		return (1);
 	remove_last_char(config->tex_no);
 	temp = get_next_line(fd);
+	while(is_only_space(temp) == 0)
+	{
+		free(temp);
+		temp = get_next_line(fd);
+	}
 	if (!temp || check_and_add_texture(temp, "SO ", &config->tex_so))
 		return (1);
 	remove_last_char(config->tex_so);
 	temp = get_next_line(fd);
+	while(is_only_space(temp) == 0)
+	{
+		free(temp);
+		temp = get_next_line(fd);
+	}
 	if (!temp || check_and_add_texture(temp, "WE ", &config->tex_we))
 		return (1);
 	remove_last_char(config->tex_we);
 	temp = get_next_line(fd);
+	while(is_only_space(temp) == 0)
+	{
+		free(temp);
+		temp = get_next_line(fd);
+	}
 	if (!temp || check_and_add_texture(temp, "EA ", &config->tex_ea))
 		return (1);
 	remove_last_char(config->tex_ea);
