@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lmarcucc <lucas@student.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 16:04:23 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/11/29 16:23:56 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/11/30 13:12:01 by lmarcucc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,13 @@ void    clean_texture(t_config *config)
 	free(config->tex_so);
 	free(config->tex_ea);
 	free(config->tex_we);
+}
+
+int	clean_game(t_game *game)
+{
+	mlx_clean(&game->mlx_cfg);
+	clean_texture(&game->cfg);
+	free_tab(&game->cfg.map);
+	exit(0);
+	return (0);
 }

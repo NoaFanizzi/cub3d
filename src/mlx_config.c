@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_config.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lmarcucc <lucas@student.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 17:19:44 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/11/30 10:51:09 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/11/30 13:00:42 by lmarcucc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
 //free all mlx pointers
-void	mlx_clean(t_mlx *config)
+int	mlx_clean(t_mlx *config)
 {
 	if (config->img)
 		mlx_destroy_image(config->mlx, config->img);
@@ -21,6 +21,7 @@ void	mlx_clean(t_mlx *config)
 		mlx_destroy_window(config->mlx, config->win);
 	mlx_destroy_display(config->mlx);
 	free(config->mlx);
+	return (0);
 }
 
 //to call after escape or cross click

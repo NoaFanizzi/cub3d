@@ -1,7 +1,7 @@
 #include "cube.h"
 
 //find the start pos of the player and init his facing direction
-void	player_start_pos(char **map, t_config *config, t_player *player)
+static void	player_start_pos(char **map, t_config *config, t_player *player)
 {
 	int	i;
 	int	j;
@@ -27,7 +27,7 @@ void	player_start_pos(char **map, t_config *config, t_player *player)
 	}
 }
 
-void	player_facing_dir(t_game *game)
+static void	player_facing_dir(t_game *game)
 {
 	if (game->cfg.player_start_dir == 'N')
 	{
@@ -51,7 +51,7 @@ void	player_facing_dir(t_game *game)
 	}
 }
 
-void	player_plane_dir(t_game *game)
+static void	player_plane_dir(t_game *game)
 {
 	t_player	*p;
 
@@ -83,8 +83,15 @@ int	init_player(t_game *game)
 	player_start_pos(game->cfg.map, &game->cfg, &game->player);
 	player_facing_dir(game);
 	player_plane_dir(game);
-	game->player.rot_speed = 1;
-	game->player.move_speed = 1;
+	game->player.rot_speed = 0.02;
+	game->player.move_speed = 0.01;
+	game->player.up = false;
+	game->player.down = false;
+	game->player.right = false;
+	game->player.left = false;
+	game->player.arrow_r = false;
+	game->player.arrow_l = false;
+
 	printf("player.pos = {%f, %f}\n", game->player.x, game->player.y);
 	return (1);
 }

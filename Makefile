@@ -13,7 +13,8 @@ MLX_DIR     =   minilibx/
 LIBFT_DIR   =   libft/
 
 #                           FILES                           #
-SRC_FILES   =   main.c map_init.c parsing.c parsing_syntax.c parsing_utils.c clean.c mlx_config.c init_player.c raycasting.c game_loop.c
+INC_FILES	=	$(INC_DIR)cube.h
+SRC_FILES   =   main.c map_init.c parsing.c parsing_syntax.c parsing_utils.c clean.c mlx_config.c init_player.c raycasting.c game_loop.c control_key.c player_mouvement.c
 OBJ_FILES   =   $(SRC_FILES:.c=.o)
 
 SRC         =   $(addprefix $(SRC_DIR), $(SRC_FILES))
@@ -44,12 +45,12 @@ print_flags:
 
 # FIX 2: Added $(LIBFT) and $(MLX) as dependencies. 
 # This guarantees they are built before linking.
-$(NAME): $(OBJ) $(LIBFT) $(MLX)
+$(NAME): $(OBJ)
 	@$(CC) $(OBJ) $(LIBFT_FLAGS) $(MLX_FLAGS) -o $(NAME)
 	@echo "$(GREEN)Build successful -> $(NAME)$(RESET)"
 
 # Object compilation
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(INC_FILES)
 	@mkdir -p $(OBJ_DIR)
 	@echo "$(GREEN)Compiling $@...$(RESET)"
 	@$(CC) $(CFLAGS) -c $< -o $@

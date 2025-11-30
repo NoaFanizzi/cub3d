@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lmarcucc <lucas@student.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 15:47:17 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/11/30 11:04:26 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/11/30 14:23:41 by lmarcucc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
+
 
 int main(int argc, char **argv)
 {
@@ -30,6 +31,9 @@ int main(int argc, char **argv)
 		return (1);
 	}
 	mlx_loop_hook(game.mlx_cfg.mlx, game_loop, &game);
+	mlx_hook(game.mlx_cfg.win, 2, 1L<<0, key_press, &game);
+    mlx_hook(game.mlx_cfg.win, 3, 1L<<1, key_release, &game);
+	mlx_hook(game.mlx_cfg.win, CROSS, 0, clean_game, &game);
 	mlx_loop(game.mlx_cfg.mlx);
 	return 0;
 }

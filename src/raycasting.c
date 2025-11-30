@@ -1,5 +1,4 @@
 #include "cube.h"
-#include <math.h>
 
 void	init_ray_step_side(t_game *g)
 {

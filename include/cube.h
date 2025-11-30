@@ -5,13 +5,21 @@
 #include "stdlib.h"
 #include "stdio.h"
 #include <sys/stat.h>
+#include <sys/time.h>
+#include <math.h>
 #include <fcntl.h>
 
 #include "libft.h"
 #include "mlx.h"
 
-#define WIDTH 1080
-#define HEIGHT 720
+#define WIDTH 1920
+#define HEIGHT 1080
+
+#define TARGET_FPS 300
+#define FRAME_TIME_US (1000000 / TARGET_FPS)
+
+#define CROSS 17
+#define ESCAPE 65307
 
 #define W 119
 #define A 97
@@ -29,7 +37,6 @@ enum {
     WE = 2,
     EA = 3
 };
-
 
 typedef struct s_mlx {
     void    *mlx;
@@ -72,6 +79,14 @@ typedef struct s_player {
 
     double  move_speed;
     double  rot_speed;
+
+    t_bool  up;
+    t_bool  down;
+    t_bool  right;
+    t_bool  left;
+
+    t_bool  arrow_r;
+    t_bool  arrow_l;
 }   t_player;
 
 typedef struct s_tex {
@@ -125,6 +140,8 @@ typedef struct s_game {
     t_player    player;
     t_tex       tex[4];   // 0=NO, 1=SO, 2=WE, 3=EA
     t_ray       ray;
+
+    long        last_frame;
 }   t_game;
 
 
@@ -132,10 +149,14 @@ typedef struct s_game {
 t_bool  init_mlx(t_mlx *config);
 int     init_player(t_game *game);
 
-//raycasting
-int	game_loop(t_game *game);
-void raycasting(t_game *g);
+//game
+int     game_loop(t_game *game);
+int     key_press(int keycode, t_game *game);
+int	    key_release(int keycode, t_game *game);
+void	player_movement(t_player *p, char **map);
 
+//raycasting
+void    raycasting(t_game *g);
 
 //parsing.c
 int	    is_suffix_correct(char *str, char *suffix);
@@ -148,7 +169,8 @@ char	**get_map(char **argv, t_config *config);
 int     parse_textures(int fd, t_config *config);
 
 //clean.c
-void	mlx_clean(t_mlx *config);
+int     clean_game(t_game *game);
+int     mlx_clean(t_mlx *config);
 void    remove_last_char(char *str);
 void    free_tab(char ***tab);
 void    ft_wipe(char **str);
