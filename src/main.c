@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 15:47:17 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/11/29 17:19:30 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/11/30 11:04:26 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int main(int argc, char **argv)
 		//free
 		return (1);
 	}
+	mlx_loop_hook(game.mlx_cfg.mlx, game_loop, &game);
 	mlx_loop(game.mlx_cfg.mlx);
 	return 0;
 }

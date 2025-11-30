@@ -42,8 +42,6 @@ typedef struct s_mlx {
     int     endian;
 }   t_mlx;
 
-
-
 typedef struct s_config {
     char    *tex_no;
     char    *tex_so;
@@ -95,11 +93,11 @@ typedef struct s_ray {
     int     map_x;        // case de départ
     int     map_y;
 
-    double  side_dist_x;
-    double  side_dist_y;
+    double  side_x;
+    double  side_y;
 
-    double  delta_dist_x;
-    double  delta_dist_y;
+    double  delta_x;
+    double  delta_y;
 
     int     step_x;
     int     step_y;
@@ -107,7 +105,7 @@ typedef struct s_ray {
     int     hit;          // on a touché un mur ?
     int     side;         // 0 = x, 1 = y
 
-    double  perp_wall_dist;
+    double  perp_dist;
 
     int     line_height;
     int     draw_start;
@@ -127,18 +125,19 @@ typedef struct s_game {
     t_player    player;
     t_tex       tex[4];   // 0=NO, 1=SO, 2=WE, 3=EA
     t_ray       ray;
-
-    int         screen_w;
-    int         screen_h;
 }   t_game;
 
 
 //init
 t_bool  init_mlx(t_mlx *config);
-int	init_player(t_game *game);
+int     init_player(t_game *game);
+
+//raycasting
+int	game_loop(t_game *game);
+void raycasting(t_game *g);
+
 
 //parsing.c
-
 int	    is_suffix_correct(char *str, char *suffix);
 int	    check_validity(char **map);
 int     check_and_add_texture(char *temp, const char *prefix, char **dest);

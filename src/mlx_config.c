@@ -6,13 +6,13 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 17:19:44 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/11/29 17:29:16 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/11/30 10:51:09 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-//free toutes les infos mlx
+//free all mlx pointers
 void	mlx_clean(t_mlx *config)
 {
 	if (config->img)
@@ -23,7 +23,7 @@ void	mlx_clean(t_mlx *config)
 	free(config->mlx);
 }
 
-//a appeler apres echap ou la croix
+//to call after escape or cross click
 int	close_window(t_game *game)
 {
 	mlx_clean(&game->mlx_cfg);

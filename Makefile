@@ -13,7 +13,7 @@ MLX_DIR     =   minilibx/
 LIBFT_DIR   =   libft/
 
 #                           FILES                           #
-SRC_FILES   =   main.c map_init.c parsing.c parsing_syntax.c parsing_utils.c clean.c mlx_config.c init_player.c
+SRC_FILES   =   main.c map_init.c parsing.c parsing_syntax.c parsing_utils.c clean.c mlx_config.c init_player.c raycasting.c game_loop.c
 OBJ_FILES   =   $(SRC_FILES:.c=.o)
 
 SRC         =   $(addprefix $(SRC_DIR), $(SRC_FILES))
