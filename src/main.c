@@ -12,7 +12,6 @@
 
 #include "cube.h"
 
-
 int main(int argc, char **argv)
 {
 	t_game	game;
@@ -25,11 +24,8 @@ int main(int argc, char **argv)
 			ft_putstr_fd("Invalid map sent !\n", 2);
 		return (1);
 	}
-	if (!init_player(&game) || !init_mlx(&game.mlx_cfg))
-	{
-		//free
+	if (!init_player(&game) || !init_mlx(&game))
 		return (1);
-	}
 	mlx_loop_hook(game.mlx_cfg.mlx, game_loop, &game);
 	mlx_hook(game.mlx_cfg.win, 2, 1L<<0, key_press, &game);
     mlx_hook(game.mlx_cfg.win, 3, 1L<<1, key_release, &game);

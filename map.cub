@@ -1,10 +1,10 @@
-NO ./path_to_the_north_texture.xpm
-SO ./path_to_the_south_texture.xpm
-WE ./path_to_the_west_texture.xpm
-EA ./path_to_the_east_texture.xpm
+NO textures/stone.xpm
+SO textures/stone.xpm
+WE textures/dirt.xpm
+EA textures/dirt.xpm
 
-F 220,100,0
-C 225,30,0
+F 120,120,120
+C 125,246,255
 
 11111111111111111111
 11111111111111111111

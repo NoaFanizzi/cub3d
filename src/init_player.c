@@ -83,8 +83,8 @@ int	init_player(t_game *game)
 	player_start_pos(game->cfg.map, &game->cfg, &game->player);
 	player_facing_dir(game);
 	player_plane_dir(game);
-	game->player.rot_speed = 0.02;
-	game->player.move_speed = 0.01;
+	game->player.rot_speed = 0.05;
+	game->player.move_speed = 0.05;
 	game->player.up = false;
 	game->player.down = false;
 	game->player.right = false;

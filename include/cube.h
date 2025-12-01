@@ -15,7 +15,7 @@
 #define WIDTH 1920
 #define HEIGHT 1080
 
-#define TARGET_FPS 300
+#define TARGET_FPS 30
 #define FRAME_TIME_US (1000000 / TARGET_FPS)
 
 #define CROSS 17
@@ -32,121 +32,125 @@
 #define NB_TEXTURES 4
 
 enum {
-    NO = 0,
-    SO = 1,
-    WE = 2,
-    EA = 3
+	NO = 0,
+	SO = 1,
+	WE = 2,
+	EA = 3
 };
 
 typedef struct s_mlx {
-    void    *mlx;
-    void    *win;
+	void    *mlx;
+	void    *win;
 
-    void    *img;        // image principale pour le rendu
-    int     *addr;       // buffer pixels
-    int     bpp;
-    int     size_line;
-    int     endian;
+	void    *img;        // image principale pour le rendu
+	char     *addr;       // buffer pixels
+	int     bpp;
+	int     size_line;
+	int     endian;
 }   t_mlx;
 
 typedef struct s_config {
-    char    *tex_no;
-    char    *tex_so;
-    char    *tex_we;
-    char    *tex_ea;
+	char    *tex_no;
+	char    *tex_so;
+	char    *tex_we;
+	char    *tex_ea;
 
-    int     floor[3];     // couleur F : R,G,B
-    int     ceiling[3];   // couleur C : R,G,B
+	int     floor[3];     // couleur F : R,G,B
+	int     ceiling[3];   // couleur C : R,G,B
 
-    char    **map;        // map brute
-    int     map_width;    // largeur max
-    int     map_height;   // nombre de lignes
+	char    **map;        // map brute
+	int     map_width;    // largeur max
+	int     map_height;   // nombre de lignes
 
-    int     player_start_x;
-    int     player_start_y;
-    char    player_start_dir;  // 'N', 'S', 'E', 'W'
+	int     player_start_x;
+	int     player_start_y;
+	char    player_start_dir;  // 'N', 'S', 'E', 'W'
 }   t_config;
 
 typedef struct s_player {
-    double  x;        // position en cases + décimales
-    double  y;
+	double  x;        // position en cases + décimales
+	double  y;
 
-    double  dir_x;    // direction du regard
-    double  dir_y;
+	double  dir_x;    // direction du regard
+	double  dir_y;
 
-    double  plane_x;  // plan caméra (perpendiculaire)
-    double  plane_y;
+	double  plane_x;  // plan caméra (perpendiculaire)
+	double  plane_y;
 
-    double  move_speed;
-    double  rot_speed;
+	double  move_speed;
+	double  rot_speed;
 
-    t_bool  up;
-    t_bool  down;
-    t_bool  right;
-    t_bool  left;
+	t_bool  up;
+	t_bool  down;
+	t_bool  right;
+	t_bool  left;
 
-    t_bool  arrow_r;
-    t_bool  arrow_l;
+	t_bool  arrow_r;
+	t_bool  arrow_l;
 }   t_player;
 
 typedef struct s_tex {
-    void    *img;       // image MLX
-    int     width;      // largeur
-    int     height;     // hauteur
-    int     *data;      // pixels (addr)
-    int     bpp;        // bits per pixel
-    int     size_line;  // longueur d'une ligne de pixels
-    int     endian;     // endianess
-    char    *path;      // chemin du fichier xpm
+	void    *img;       // image MLX
+	int     width;      // largeur
+	int     height;     // hauteur
+	char    *addr;      // pixels
+	int     bpp;        // bits per pixel
+	int     size_line;  // longueur d'une ligne de pixels
+	int     endian;     // endianess
+	char    *path;      // chemin du fichier xpm
 }   t_tex;
 
 typedef struct s_ray {
-    double  camera_x;     // coordonnée du rayon dans l'espace caméra (-1 à 1)
-    double  dir_x;        // direction du rayon
-    double  dir_y;
+	double  camera_x;     // coordonnée du rayon dans l'espace caméra (-1 à 1)
+	double  dir_x;        // direction du rayon
+	double  dir_y;
 
-    int     map_x;        // case de départ
-    int     map_y;
+	int     map_x;        // case de départ
+	int     map_y;
 
-    double  side_x;
-    double  side_y;
+	double  side_x;
+	double  side_y;
 
-    double  delta_x;
-    double  delta_y;
+	double  delta_x;
+	double  delta_y;
 
-    int     step_x;
-    int     step_y;
+	int     step_x;
+	int     step_y;
 
-    int     hit;          // on a touché un mur ?
-    int     side;         // 0 = x, 1 = y
+	int     hit;          // on a touché un mur ?
+	int     side;         // 0 = x, 1 = y
 
-    double  perp_dist;
+	double  perp_dist;
 
-    int     line_height;
-    int     draw_start;
-    int     draw_end;
+	int     line_height;
+	int     draw_start;
+	int     draw_end;
 
-    double  wall_x;       // position du point d’impact sur la texture
-    int     tex_x;
-    int     tex_y;
+	double  wall_x;       // position du point d’impact sur la texture
+	int     tex_x;
+	int     tex_y;
+	int		index;
 
-    double  tex_step;
-    double  tex_pos;
+	double  tex_step;
+	double  tex_pos;
 }   t_ray;
 
 typedef struct s_game {
-    t_mlx       mlx_cfg;
-    t_config    cfg;
-    t_player    player;
-    t_tex       tex[4];   // 0=NO, 1=SO, 2=WE, 3=EA
-    t_ray       ray;
+	t_mlx       mlx_cfg;
+	t_config    cfg;
+	t_player    player;
+	t_tex       tex[4];   // 0=NO, 1=SO, 2=WE, 3=EA
+	t_ray       ray;
 
-    long        last_frame;
+	long        last_frame;
 }   t_game;
 
 
+void	my_put_pixel(t_mlx *mlx, int x, int y, int color);
+long long get_time_micro(void);
+
 //init
-t_bool  init_mlx(t_mlx *config);
+t_bool  init_mlx(t_game *game);
 int     init_player(t_game *game);
 
 //game

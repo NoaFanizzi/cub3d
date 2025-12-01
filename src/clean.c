@@ -52,6 +52,18 @@ void    clean_texture(t_config *config)
 	free(config->tex_we);
 }
 
+//free all mlx pointers
+int	mlx_clean(t_mlx *config)
+{
+	if (config->img)
+		mlx_destroy_image(config->mlx, config->img);
+	if (config->win)
+		mlx_destroy_window(config->mlx, config->win);
+	mlx_destroy_display(config->mlx);
+	free(config->mlx);
+	return (0);
+}
+
 int	clean_game(t_game *game)
 {
 	mlx_clean(&game->mlx_cfg);
