@@ -14,30 +14,30 @@
 
 static t_bool	check_collision(char move, t_player *p, char **map)
 {
-	int new_x;
-	int	new_y;
+	double new_x;
+	double	new_y;
 
 	if (move == 'U')
 	{
-		new_x = (int)(p->x + p->dir_x * p->move_speed * 1.2);
-		new_y = (int)(p->y + p->dir_y * p->move_speed * 1.2);
+		new_x = (p->x + p->dir_x * p->move_speed);
+		new_y = (p->y + p->dir_y * p->move_speed);
 	}
 	else if (move == 'D')
 	{
-		new_x = (int)(p->x - p->dir_x * p->move_speed * 1.2);
-		new_y = (int)(p->y - p->dir_y * p->move_speed * 1.2);
+		new_x = (p->x - p->dir_x * p->move_speed);
+		new_y = (p->y - p->dir_y * p->move_speed);
 	}
 	else if (move == 'R')
 	{
-		new_x = (int)(p->x + p->plane_x * p->move_speed * 1.2);
-		new_y = (int)(p->y + p->plane_y * p->move_speed * 1.2);
+		new_x = (p->x + p->plane_x * p->move_speed);
+		new_y = (p->y + p->plane_y * p->move_speed);
 	}
 	else
 	{
-		new_x = (int)(p->x - p->plane_x * p->move_speed * 1.2);
-		new_y = (int)(p->y - p->plane_y * p->move_speed * 1.2);
+		new_x = (p->x - p->plane_x * p->move_speed);
+		new_y = (p->y - p->plane_y * p->move_speed);
 	}
-	return (map[new_y][new_x] != '1');
+	return (map[(int)(new_y)][(int)(new_x)] != '1');
 }
 
 static void rotate_player(t_player *p, double angle)

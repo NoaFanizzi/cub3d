@@ -12,23 +12,25 @@
 #include "libft.h"
 #include "mlx.h"
 
+// window
 #define WIDTH 1920
 #define HEIGHT 1080
 
+// FPS
 #define TARGET_FPS 30
 #define FRAME_TIME_US (1000000 / TARGET_FPS)
 
+// keys
 #define CROSS 17
 #define ESCAPE 65307
-
 #define W 119
 #define A 97
 #define S 115
 #define D 100
-
 #define LEFT 65361
 #define RIGHT 65363
 
+// textures
 #define NB_TEXTURES 4
 
 enum {
@@ -161,6 +163,9 @@ void	player_movement(t_player *p, char **map);
 
 //raycasting
 void    raycasting(t_game *g);
+void	draw_vertical_text(t_mlx *mlx, int x, t_ray *ray, t_tex *tex);
+void	find_texture_x(t_ray *ray, t_player *p, t_tex *tex);
+t_tex	*choose_tex(t_game *g);
 
 //parsing.c
 int	    is_suffix_correct(char *str, char *suffix);

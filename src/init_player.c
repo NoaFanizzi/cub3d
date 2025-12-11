@@ -91,7 +91,5 @@ int	init_player(t_game *game)
 	game->player.left = false;
 	game->player.arrow_r = false;
 	game->player.arrow_l = false;
-
-	printf("player.pos = {%f, %f}\n", game->player.x, game->player.y);
 	return (1);
 }

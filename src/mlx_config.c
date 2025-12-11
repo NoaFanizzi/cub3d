@@ -51,7 +51,6 @@ static t_bool	init_xpm_texture(t_tex *tex, void *mlx, char *path)
 		return (false);
 	}
 	tex->path = path;
-	printf("loaded %s\n", path);
 	return (true);
 }
 
@@ -102,7 +101,7 @@ t_bool	init_mlx(t_game *game)
 	config->addr = mlx_get_data_addr(config->img, &config->bpp,
 		&config->size_line, &config->endian);
 	if (!init_textures(game))
-		return (printf("shit happended\n"), false);
+		return (false);
 	game->last_frame = get_time_micro();
 	return (true);
 }
