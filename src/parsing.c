@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 14:58:49 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/12/18 17:17:51 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/18 18:19:32 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,12 @@ int	parse_textures(int fd, t_config *config)
 	if (!temp || check_and_add_texture(temp, "NO ", &config->tex_no))
 		return (1);
 	remove_last_char(config->tex_no);
-	temp = get_next_line(fd);
+	temp = get_next_line(fd); //PROTECTED
+	if(!temp)
+	{
+		ft_wipe(&config->tex_no);
+		return (1);
+	}
 	while(is_only_space(temp) == 0)
 	{
 		free(temp);
@@ -63,7 +68,13 @@ int	parse_textures(int fd, t_config *config)
 	if (!temp || check_and_add_texture(temp, "SO ", &config->tex_so))
 		return (1);
 	remove_last_char(config->tex_so);
-	temp = get_next_line(fd);
+	temp = get_next_line(fd); //PROTECTED
+	if(!temp)
+	{
+		ft_wipe(&config->tex_no);
+		ft_wipe(&config->tex_so);
+		return (1);
+	}
 	while(is_only_space(temp) == 0)
 	{
 		free(temp);
@@ -72,7 +83,14 @@ int	parse_textures(int fd, t_config *config)
 	if (!temp || check_and_add_texture(temp, "WE ", &config->tex_we))
 		return (1);
 	remove_last_char(config->tex_we);
-	temp = get_next_line(fd);
+	temp = get_next_line(fd); //PROTECTED
+	if(!temp)
+	{
+		ft_wipe(&config->tex_no);
+		ft_wipe(&config->tex_so);
+		ft_wipe(&config->tex_we);
+		return (1);
+	}
 	while(is_only_space(temp) == 0)
 	{
 		free(temp);

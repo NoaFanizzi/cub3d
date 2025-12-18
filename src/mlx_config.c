@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_config.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmarcucc <lucas@student.fr>                +#+  +:+       +#+        */
+/*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 17:19:44 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/11/30 13:00:42 by lmarcucc         ###   ########.fr       */
+/*   Updated: 2025/12/18 18:39:42 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,20 +60,20 @@ static t_bool	init_textures(t_game *game)
 		return (false);
 	if (!init_xpm_texture(&game->tex[1], game->mlx_cfg.mlx, game->cfg.tex_so))
 	{
-		mlx_destroy_image(game->mlx_cfg.mlx, &game->tex[0]);
+		mlx_destroy_image(game->mlx_cfg.mlx, game->tex[0].img);
 		return (false);
 	}
 	if (!init_xpm_texture(&game->tex[2], game->mlx_cfg.mlx, game->cfg.tex_we))
 	{
-		mlx_destroy_image(game->mlx_cfg.mlx, &game->tex[0]);
-		mlx_destroy_image(game->mlx_cfg.mlx, &game->tex[1]);
+		mlx_destroy_image(game->mlx_cfg.mlx, game->tex[0].img);
+		mlx_destroy_image(game->mlx_cfg.mlx, game->tex[1].img);
 		return (false);
 	}
 	if (!init_xpm_texture(&game->tex[3], game->mlx_cfg.mlx, game->cfg.tex_ea))
 	{
-		mlx_destroy_image(game->mlx_cfg.mlx, &game->tex[0]);
-		mlx_destroy_image(game->mlx_cfg.mlx, &game->tex[1]);
-		mlx_destroy_image(game->mlx_cfg.mlx, &game->tex[2]);
+		mlx_destroy_image(game->mlx_cfg.mlx, game->tex[0].img);
+		mlx_destroy_image(game->mlx_cfg.mlx, game->tex[1].img);
+		mlx_destroy_image(game->mlx_cfg.mlx, game->tex[2].img);
 		return (false);
 	}
 	return (true);
@@ -94,14 +94,29 @@ t_bool	init_mlx(t_game *game)
 	config->win = mlx_new_window(config->mlx, WIDTH, HEIGHT, "Cub3D");
 	if (!config->win)
 	{
-		write(2, "mlx_new_window() fail\n", 17);
+		write(2, "mlx_new_window() fail\n", 23);
+		mlx_destroy_display(config->mlx);
+		free(config->mlx);
 		return (false);
 	}
 	config->img = mlx_new_image(config->mlx, WIDTH, HEIGHT);
+	if (!config->img)
+	{
+		mlx_destroy_window(config->mlx, config->win);
+		mlx_destroy_display(config->mlx);
+		free(config->mlx);
+		return (false);
+	}
 	config->addr = mlx_get_data_addr(config->img, &config->bpp,
 		&config->size_line, &config->endian);
 	if (!init_textures(game))
+	{
+		mlx_destroy_image(config->mlx, config->img);
+		mlx_destroy_window(config->mlx, config->win);
+		mlx_destroy_display(config->mlx);
+		free(config->mlx);
 		return (false);
+	}
 	game->last_frame = get_time_micro();
 	return (true);
 }

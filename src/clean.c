@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmarcucc <lucas@student.fr>                +#+  +:+       +#+        */
+/*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 16:04:23 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/11/30 13:12:01 by lmarcucc         ###   ########.fr       */
+/*   Updated: 2025/12/18 18:12:42 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,20 @@ void    ft_wipe(char **str)
     *str = NULL;
 }
 
-void    clean_texture(t_config *config)
+void	clean_texture(t_config *config)
 {
-    free(config->tex_no);
-	free(config->tex_so);
-	free(config->tex_ea);
-	free(config->tex_we);
+	if (config->tex_no)
+		free(config->tex_no);
+	if (config->tex_so)
+		free(config->tex_so);
+	if (config->tex_ea)
+		free(config->tex_ea);
+	if (config->tex_we)
+		free(config->tex_we);
+	config->tex_no = NULL;
+	config->tex_so = NULL;
+	config->tex_ea = NULL;
+	config->tex_we = NULL;
 }
 
 //free all mlx pointers
@@ -59,13 +67,26 @@ int	mlx_clean(t_mlx *config)
 		mlx_destroy_image(config->mlx, config->img);
 	if (config->win)
 		mlx_destroy_window(config->mlx, config->win);
-	mlx_destroy_display(config->mlx);
-	free(config->mlx);
+	if (config->mlx)
+	{
+		mlx_destroy_display(config->mlx);
+		free(config->mlx);
+	}
 	return (0);
 }
 
 int	clean_game(t_game *game)
 {
+	int i;
+
+	// FIXED: Clean up textures loaded in init_textures
+	i = 0;
+	while (i < 4)
+	{
+		if (game->tex[i].img)
+			mlx_destroy_image(game->mlx_cfg.mlx, game->tex[i].img);
+		i++;
+	}
 	mlx_clean(&game->mlx_cfg);
 	clean_texture(&game->cfg);
 	free_tab(&game->cfg.map);

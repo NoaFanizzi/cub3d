@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 15:01:53 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/12/18 17:25:45 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/18 18:38:05 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	get_tab_length(char ***tab, size_t *length)
 	}
 }
 
-void	resize_map(char ***map, char ***new_map, char **temp, int is_last)
+int	resize_map(char ***map, char ***new_map, char **temp, int is_last)
 {
 	size_t	length;
 	size_t	i;
@@ -64,14 +64,32 @@ void	resize_map(char ***map, char ***new_map, char **temp, int is_last)
 	i = 0;
 	j = 0;
 	get_tab_length(map, &length);
-	*new_map = ft_calloc(length + 2, sizeof(char *)); // + 1 pour la nouvelle ligne, + 1 pour le NULL de fin
+	*new_map = ft_calloc(length + 2, sizeof(char *)); //PROTECTED
+	if (!(*new_map))
+		return (1);
 	while (i < length)
 	{
-		(*new_map)[i] = ft_strdup((*map)[i]);
+		(*new_map)[i] = ft_strdup((*map)[i]); //PROTECTED
+		if (!(*new_map)[i])
+		{
+			while (i > 0)
+				free((*new_map)[--i]);
+			free(*new_map);
+			*new_map = NULL;
+			return (1);
+		}
 		i++;
 	}
 	length = ft_strlen(*temp);
-	(*new_map)[i] = ft_calloc(length + 3, sizeof(char)); // + 1 pour le null byte, + 2 pour le 1er et le dernier X
+	(*new_map)[i] = ft_calloc(length + 3, sizeof(char)); //PROTECTED
+	if (!(*new_map)[i])
+	{
+		while (i > 0)
+			free((*new_map)[--i]);
+		free(*new_map);
+		*new_map = NULL;
+		return (1);
+	}
 	(*new_map)[i][0] = 'X';
 	while ((*temp)[j])
 	{
@@ -83,6 +101,7 @@ void	resize_map(char ***map, char ***new_map, char **temp, int is_last)
 	j++;
 	if (is_last == 0)
 		(*new_map)[i][j] = 'X';
+	return(0);
 }
 
 void	load_delimitation_line(char **trimmed_map, size_t length)
@@ -98,8 +117,6 @@ void	load_delimitation_line(char **trimmed_map, size_t length)
 	}
 }
 
-
-
 void	add_last_line(char ***map)
 {
 	size_t	length;
@@ -113,8 +130,7 @@ void	add_last_line(char ***map)
 		return ;
 	load_delimitation_line(&line_full_x, length);
 	old_map = *map;
-	resize_map(map, &new_map, &line_full_x, 1);
-	if (new_map)
+	if (resize_map(map, &new_map, &line_full_x, 1) == 0) // FIXED: Check return value
 	{
 		if (old_map)
 			free_tab(&old_map);
@@ -122,6 +138,7 @@ void	add_last_line(char ***map)
 	}
 	free(line_full_x);
 }
+
 
 int	update_map(char ***map, char **temp)
 {
@@ -138,21 +155,42 @@ int	update_map(char ***map, char **temp)
 	if(!(*temp)[0])
 		return(0);
 	trimmed_line = ft_strtrim(*temp, "\n");
+	if (!trimmed_line) // FIXED: Check for allocation failure
+		return (1);
 	if (*map)
 	{
 		old_map = *map;
-		resize_map(map, &new_map, &trimmed_line, 0);
+		if (resize_map(map, &new_map, &trimmed_line, 0) != 0)
+		{
+			ft_wipe(&trimmed_line);
+			return (1);
+		}
 		free_tab(&old_map);
 	}
 	else
 	{
-		line_full_x = ft_calloc(ft_strlen(trimmed_line) + 3, sizeof(char));
+		line_full_x = ft_calloc(ft_strlen(trimmed_line) + 3, sizeof(char)); //PROTECTED
+		if (!line_full_x)
+		{
+			ft_wipe(&trimmed_line);
+			return (1);
+		}
 		load_delimitation_line(&line_full_x, ft_strlen(trimmed_line));
-		resize_map(map, &temp, &line_full_x, 0);
+		if (resize_map(map, &new_map, &line_full_x, 0) != 0)
+		{
+			free(line_full_x);
+			ft_wipe(&trimmed_line);
+			return (1);
+		}
 		free(line_full_x);
-		resize_map(&temp, &new_map, &trimmed_line, 0);
-		if (*temp)
-			free_tab(&temp);
+		char **temp_map = new_map;
+		if (resize_map(&temp_map, &new_map, &trimmed_line, 0) != 0)
+		{
+			free_tab(&temp_map);
+			ft_wipe(&trimmed_line);
+			return (1);
+		}
+		free_tab(&temp_map);
 	}
 	*map = new_map;
 	ft_wipe(&trimmed_line);
@@ -171,7 +209,12 @@ int	check_and_add_texture(char *temp, const char *prefix, char **dest)
 		ft_wipe(&temp);
 		return (1);
 	}
-	*dest = ft_strdup(&temp[3]);
+	*dest = ft_strdup(&temp[3]); //PROTECTED
+	if(!*dest)
+	{
+		ft_wipe(&temp);
+		return (1);
+	}
 	ft_wipe(&temp);
 	return (0);
 }
@@ -212,7 +255,7 @@ int parse_colors(int fd, t_config *config)
 {
 	char	*temp;
 
-	temp = get_next_line(fd);
+	temp = get_next_line(fd); //PROTECTED
 	while(is_only_space(temp) == 0)
 	{
 		ft_wipe(&temp);
@@ -222,7 +265,7 @@ int parse_colors(int fd, t_config *config)
 	if (!temp || parse_color_line(temp, 'F', config->floor))
 		return (1);
 	//ft_wipe(&temp);
-	temp = get_next_line(fd);
+	temp = get_next_line(fd); //PROTECTED
 	while(is_only_space(temp) == 0)
 	{
 		ft_wipe(&temp);
@@ -255,22 +298,22 @@ char	**get_map(char **argv, t_config *config)
 	if (fd < 0)
 		return (NULL);
 	if (parse_textures(fd, config) == 1)
+	{
+		close(fd);
 		return(NULL);
+	}
 	if (parse_colors(fd, config) == 1)
 	{
-		printf("AAAAAAA\n");
+		close(fd);
 		return(NULL);
 	}
 	ft_display_colors(config);
-	//display_texture_data(data);
 	if(is_map_suffix_correct(config, "mpx.") == 1)
 	{
 		clean_texture(config);
+		close(fd);
 		return(NULL);
 	}
-	printf("SLT\n");
-	//display_tab(map);
-	//display_tab(map);
 	while (1)
 	{
 		temp = get_next_line(fd);
@@ -279,8 +322,15 @@ char	**get_map(char **argv, t_config *config)
 			free(temp);
 			continue;
 		}
-		update_map(&map, &temp);
-		//display_tab(map);
+		if (update_map(&map, &temp) != 0) // FIXED: Check return value
+		{
+			if (temp)
+				free(temp);
+			if (map)
+				free_tab(&map);
+			close(fd);
+			return (NULL);
+		}
 		if (!temp)
 			break ;
 		free(temp);
