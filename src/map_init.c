@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 15:01:53 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/11/29 20:14:23 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/18 17:25:45 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ void	add_last_line(char ***map)
 int	update_map(char ***map, char **temp)
 {
 	char	**new_map;
+	char	**old_map;
 	char	*trimmed_line;
 	char	*line_full_x;
 
@@ -139,7 +140,9 @@ int	update_map(char ***map, char **temp)
 	trimmed_line = ft_strtrim(*temp, "\n");
 	if (*map)
 	{
+		old_map = *map;
 		resize_map(map, &new_map, &trimmed_line, 0);
+		free_tab(&old_map);
 	}
 	else
 	{

@@ -17,7 +17,7 @@
 #define HEIGHT 1080
 
 // FPS
-#define TARGET_FPS 30
+#define TARGET_FPS 60
 #define FRAME_TIME_US (1000000 / TARGET_FPS)
 
 // keys
