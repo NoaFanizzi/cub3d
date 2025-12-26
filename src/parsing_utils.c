@@ -6,11 +6,46 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 16:45:38 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/12/26 14:29:13 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/26 18:31:23 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
+
+void	replace_char(char ***map, char old, char new, t_config *config)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	(void)config;
+	while ((*map)[i])
+	{
+		j = 0;
+		while ((*map)[i][j])
+		{
+			if ((*map)[i][j] == old)
+				(*map)[i][j] = new;
+			j++;
+		}
+		i++;
+	}
+}
+
+void	get_tab_length(char ***tab, size_t *length)
+{
+	size_t	i;
+
+	i = 0;
+	*length = 0;
+	if (!(*tab))
+		return ;
+	while ((*tab)[i])
+	{
+		*length += 1;
+		i++;
+	}
+}
 
 int	get_last_line_pos(char ***map)
 {

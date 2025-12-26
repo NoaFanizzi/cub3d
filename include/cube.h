@@ -193,6 +193,8 @@ int     is_only_space(char *str);
 //parsing_utils.c
 int     get_last_line_pos(char ***map);
 int	    get_last_line_length(char ***map);
+void	replace_char(char ***map, char old, char new, t_config *config);
+void	get_tab_length(char ***tab, size_t *length);
 
 //parsing.c
 int	    check_validity(char **map);
@@ -205,5 +207,15 @@ int		is_config_complete(t_config *config);
 //map_init.c
 int parse_color_line(char *line, char identifier, int *color_array);
 
+//colors.c
+void	ft_display_colors(t_config *config);
+int 	parse_color_line(char *line, char identifier, int *color_array);
+int 	parse_colors(int fd, t_config *config);
+
+//map_resizing.c
+int		update_map(char ***map, char **temp);
+int     resize_map(char ***map, char ***new_map, char **temp, int is_last);
+void	load_delimitation_line(char **trimmed_map, size_t length);
+void	add_last_line(char ***map);
 
 #endif
