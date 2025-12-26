@@ -1,6 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_player.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/26 14:25:02 by nofanizz          #+#    #+#             */
+/*   Updated: 2025/12/26 14:30:49 by nofanizz         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cube.h"
 
-//find the start pos of the player and init his facing direction
 static void	player_start_pos(char **map, t_config *config, t_player *player)
 {
 	int	i;

@@ -199,6 +199,11 @@ int	    check_validity(char **map);
 int	    parse_textures(int fd, t_config *config);
 int 	check_border(char **map);
 int	    map_parser(int argc, char **argv, char ***map, t_config *config);
+int		parse_config_line(char *line, t_config *config);
+int		is_config_complete(t_config *config);
+
+//map_init.c
+int parse_color_line(char *line, char identifier, int *color_array);
 
 
 #endif

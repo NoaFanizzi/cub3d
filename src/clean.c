@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 16:04:23 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/12/18 18:12:42 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/26 14:24:29 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	free_tab(char ***tab)
 {
 	size_t	i;
 
+	if (!tab || !(*tab))
+		return ;
 	i = 0;
 	while ((*tab)[i])
 	{
@@ -36,6 +38,7 @@ void	free_tab(char ***tab)
 		i++;
 	}
 	free(*tab);
+	*tab = NULL;
 }
 
 void    ft_wipe(char **str)
@@ -79,7 +82,6 @@ int	clean_game(t_game *game)
 {
 	int i;
 
-	// FIXED: Clean up textures loaded in init_textures
 	i = 0;
 	while (i < 4)
 	{

@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 15:01:53 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/12/18 18:38:05 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/26 14:28:46 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,14 @@ void	replace_char(char ***map, char old, char new, t_config *config)
 {
 	size_t	i;
 	size_t	j;
-	//size_t tp_positionned;
 
 	i = 0;
 	(void)config;
-	//tp_positionned = 0;
 	while ((*map)[i])
 	{
 		j = 0;
 		while ((*map)[i][j])
 		{
-			//if((*map)[i][j] == '1' && tp_positionned == 0)
-			// if((*map)[i][j] == '1')
-			// {
-			// 	data->tp_pos.y = i;
-			// 	data->tp_pos.x = j;
-			// }
 			if ((*map)[i][j] == old)
 				(*map)[i][j] = new;
 			j++;
@@ -197,58 +189,87 @@ int	update_map(char ***map, char **temp)
 	return (0);
 }
 
-int	check_and_add_texture(char *temp, const char *prefix, char **dest)
+int check_and_add_texture(char *temp, const char *prefix, char **dest)
 {
-	if (ft_strncmp(temp, prefix, 3) != 0)
-	{
-		ft_wipe(&temp);
-		return (1);
-	}
-	if (ft_strlen(temp) <= 3)
-	{
-		ft_wipe(&temp);
-		return (1);
-	}
-	*dest = ft_strdup(&temp[3]); //PROTECTED
-	if(!*dest)
-	{
-		ft_wipe(&temp);
-		return (1);
-	}
-	ft_wipe(&temp);
-	return (0);
+    char *trimmed_path;
+
+    if (ft_strncmp(temp, prefix, 3) != 0)
+    {
+        ft_wipe(&temp);
+        return (1);
+    }
+    if (*dest) 
+    {
+        ft_putstr_fd("Error: Duplicate texture definition\n", 2);
+        ft_wipe(&temp);
+        return (1);
+    }
+    trimmed_path = ft_strtrim(&temp[3], " \t\n\v\f\r"); // PROTECTED
+    ft_wipe(&temp);
+    if (!trimmed_path || ft_strlen(trimmed_path) == 0)
+    {
+        if (trimmed_path) free(trimmed_path);
+        return (1);
+    }
+    *dest = trimmed_path;
+    return (0);
+}
+
+static int is_str_digit(char *str)
+{
+    int i = 0;
+
+    while (str[i] && ft_isspace(str[i]))
+        i++;
+    if (!str[i])
+        return (0);
+    while (str[i] && ft_isdigit(str[i]))
+        i++;
+    while (str[i] && ft_isspace(str[i]))
+        i++;
+    if (str[i] != '\0')
+        return (0);
+    return (1);
 }
 
 int parse_color_line(char *line, char identifier, int *color_array)
 {
-	char	**colors;
-	size_t	i;
+    char    **colors;
+    size_t  i;
+    int     val;
 
-	if (line[0] != identifier || line[1] != ' ')
-	{
-		ft_wipe(&line);
-		return (1);
-	}
-	colors = ft_split(&line[2], ',');
-	ft_wipe(&line);
-	if (!colors)
-		return (1);
-	i = 0;
-	while (colors[i])
-		i++;
-	if (i != 3)
-	{
-		free_tab(&colors);
-		return (1);
-	}
-	i = 0;
-	while (colors[i])
-	{
-		color_array[i] = ft_atoi(colors[i]);
-		i++;
-	}
-	free_tab(&colors);
-	return (0);
+    if (line[0] != identifier || !ft_isspace(line[1]))
+        return (1);
+    colors = ft_split(&line[2], ',');
+    if (!colors)
+        return (1);
+    i = 0;
+    while (colors[i])
+        i++;
+    if (i != 3)
+    {
+        free_tab((char ***)&colors);
+        return (1);
+    }
+    i = 0;
+    while (colors[i])
+    {
+        if (!is_str_digit(colors[i]))
+        {
+            free_tab((char ***)&colors);
+            return (1);
+        }
+        val = ft_atoi(colors[i]);
+        if (val < 0 || val > 255)
+        {
+            free_tab((char ***)&colors);
+            return (1);
+        }
+        color_array[i] = val;
+        i++;
+    }
+    free_tab((char ***)&colors);
+    return (0);
 }
 
 int parse_colors(int fd, t_config *config)
@@ -264,7 +285,6 @@ int parse_colors(int fd, t_config *config)
 	printf("Color line 1: %s", temp);
 	if (!temp || parse_color_line(temp, 'F', config->floor))
 		return (1);
-	//ft_wipe(&temp);
 	temp = get_next_line(fd); //PROTECTED
 	while(is_only_space(temp) == 0)
 	{
@@ -273,7 +293,6 @@ int parse_colors(int fd, t_config *config)
 	}
 	if (!temp || parse_color_line(temp, 'C', config->ceiling))
 		return (1);
-	//ft_wipe(&temp);
 	return (0);
 }
 
@@ -283,59 +302,80 @@ void	ft_display_colors(t_config *config)
 	printf("Ceiling color: R=%d, G=%d, B=%d\n", config->ceiling[0], config->ceiling[1], config->ceiling[2]);
 }
 
-char	**get_map(char **argv, t_config *config)
+/* map_init.c */
+
+char    **get_map(char **argv, t_config *config)
 {
-	int		fd;
-	char	*temp;
-	char	**map;
-	
-	map = NULL;
-	config->tex_no = NULL;
-	config->tex_so = NULL;
-	config->tex_we = NULL;
+    int     fd;
+    char    *line;
+    char    **map = NULL;
+    int     map_started = 0;
+    int     config_res;
+
+    config->tex_no = NULL;
+	config->tex_so = NULL; 
+    config->tex_we = NULL;
 	config->tex_ea = NULL;
-	fd = open(argv[1], O_RDONLY);
-	if (fd < 0)
-		return (NULL);
-	if (parse_textures(fd, config) == 1)
-	{
-		close(fd);
-		return(NULL);
-	}
-	if (parse_colors(fd, config) == 1)
-	{
-		close(fd);
-		return(NULL);
-	}
-	ft_display_colors(config);
-	if(is_map_suffix_correct(config, "mpx.") == 1)
-	{
-		clean_texture(config);
-		close(fd);
-		return(NULL);
-	}
-	while (1)
-	{
-		temp = get_next_line(fd);
-		if(is_only_space(temp) == 0)
-		{
-			free(temp);
-			continue;
-		}
-		if (update_map(&map, &temp) != 0) // FIXED: Check return value
-		{
-			if (temp)
-				free(temp);
-			if (map)
-				free_tab(&map);
+	config->floor[0] = -1; 
+    config->ceiling[0] = -1;
+
+    fd = open(argv[1], O_RDONLY);
+    if (fd < 0) return (NULL);
+
+    while ((line = get_next_line(fd)))
+    {
+        if (is_only_space(line) == 0)
+        {
+            free(line);
+            if (map_started) // je check si y'a un ptn de trou
+                map_started = 2;
+            continue;
+        }
+
+        if (map_started == 2)
+        {
+            free(line);
+            free_tab(&map);
+            close(fd);
+            return (NULL);
+        }
+        config_res = parse_config_line(line, config);
+        if (config_res == 0) 
+            free(line); 
+        else if (config_res == 1)
+        {
+            free(line);
+			free_tab(&map);
 			close(fd);
 			return (NULL);
-		}
-		if (!temp)
-			break ;
-		free(temp);
-	}
-	close(fd);
-	replace_char(&map, ' ', 'X', config);
-	return (map);
+        }
+        else
+        {
+            if (!is_config_complete(config))
+            {
+                free(line);
+				free_tab(&map);
+				close(fd);
+				return (NULL);
+            }
+            map_started = 1;
+            if (update_map(&map, &line) != 0)
+            {
+                if (line)
+					free(line);
+                if (map)
+				{
+					free_tab(&map);
+					close(fd);
+					return (NULL);
+				}
+            }
+            free(line);
+        }
+    }
+    close(fd);
+    if (!map || !is_config_complete(config)) 
+        return (NULL);
+    replace_char(&map, ' ', 'X', config);
+    return (map);
 }

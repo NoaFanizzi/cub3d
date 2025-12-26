@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 17:19:44 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/12/18 18:39:42 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/26 14:29:02 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void my_put_pixel(t_mlx *mlx, int x, int y, int color)
     *(unsigned int *)dst = color;
 }
 
-//to call after escape or cross click
 int	close_window(t_game *game)
 {
 	mlx_clean(&game->mlx_cfg);
@@ -79,7 +78,6 @@ static t_bool	init_textures(t_game *game)
 	return (true);
 }
 
-//init mlx
 t_bool	init_mlx(t_game *game)
 {
 	t_mlx	*config;

@@ -1,10 +1,10 @@
-NO textures/stone.xpm
-SO textures/stone.xpm
-WE textures/dirt.xpm
+NO textures/moon.xpm
+SO textures/rocks.xpm
+WE textures/stone.xpm
 EA textures/dirt.xpm
 
-F 120,   120,120
-C 125,246,255
+C 125,246,200
+F 120,120,120
 
 11111111111111111111
 11111111111111111111
