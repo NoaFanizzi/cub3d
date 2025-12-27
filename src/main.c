@@ -12,7 +12,7 @@
 
 #include "cube.h"
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_game	game;
 
@@ -20,7 +20,6 @@ int main(int argc, char **argv)
 	game.cfg.tex_so = NULL;
 	game.cfg.tex_we = NULL;
 	game.cfg.tex_ea = NULL;
-
 	if (map_parser(argc, argv, &game.cfg.map, &game.cfg) == 1)
 	{
 		clean_texture(&game.cfg);
@@ -37,12 +36,12 @@ int main(int argc, char **argv)
 		return (1);
 	}
 	mlx_loop_hook(game.mlx_cfg.mlx, game_loop, &game);
-	mlx_hook(game.mlx_cfg.win, 2, 1L<<0, key_press, &game);
-    mlx_hook(game.mlx_cfg.win, 3, 1L<<1, key_release, &game);
+	mlx_hook(game.mlx_cfg.win, 2, 1L << 0, key_press, &game);
+	mlx_hook(game.mlx_cfg.win, 3, 1L << 1, key_release, &game);
 	mlx_hook(game.mlx_cfg.win, CROSS, 0, clean_game, &game);
 	mlx_loop(game.mlx_cfg.mlx);
-	return 0;
+	return (0);
 }
 
-//TODO J'envoie une map qui existe pas et ca fait de la merde
-//TODO rajouter les flags dans le makefile
+// TODO J'envoie une map qui existe pas et ca fait de la merde
+// TODO rajouter les flags dans le makefile

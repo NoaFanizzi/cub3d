@@ -12,16 +12,14 @@
 
 #include "cube.h"
 
-void my_put_pixel(t_mlx *mlx, int x, int y, int color)
+void	my_put_pixel(t_mlx *mlx, int x, int y, int color)
 {
-    char *dst;
+	char	*dst;
 
-    if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
-        return;
-
-    dst = mlx->addr + (y * mlx->size_line + x * (mlx->bpp / 8));
-
-    *(unsigned int *)dst = color;
+	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
+		return ;
+	dst = mlx->addr + (y * mlx->size_line + x * (mlx->bpp / 8));
+	*(unsigned int *)dst = color;
 }
 
 int	close_window(t_game *game)
@@ -40,8 +38,8 @@ static t_bool	init_xpm_texture(t_tex *tex, void *mlx, char *path)
 		write(2, "\n", 1);
 		return (false);
 	}
-	tex->addr = mlx_get_data_addr(tex->img, &tex->bpp,
-		&tex->size_line, &tex->endian);
+	tex->addr = mlx_get_data_addr(tex->img, &tex->bpp, &tex->size_line,
+			&tex->endian);
 	if (!tex->addr)
 	{
 		perror("mlx_get_data_addr() fail\n");
@@ -77,5 +75,3 @@ t_bool	init_textures(t_game *game)
 	}
 	return (true);
 }
-
-

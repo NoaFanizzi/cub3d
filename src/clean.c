@@ -6,23 +6,23 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 16:04:23 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/12/26 14:24:29 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/27 10:26:17 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-void remove_last_char(char *str)
+void	remove_last_char(char *str)
 {
-    size_t i;
+	size_t	i;
 
-    if (!str)
-        return;
-    i = 0;
-    while (str[i])
-        i++;
-    if (i > 0)
-        str[i - 1] = '\0';
+	if (!str)
+		return ;
+	i = 0;
+	while (str[i])
+		i++;
+	if (i > 0)
+		str[i - 1] = '\0';
 }
 
 void	free_tab(char ***tab)
@@ -41,10 +41,10 @@ void	free_tab(char ***tab)
 	*tab = NULL;
 }
 
-void    ft_wipe(char **str)
+void	ft_wipe(char **str)
 {
-    free(*str);
-    *str = NULL;
+	free(*str);
+	*str = NULL;
 }
 
 void	clean_texture(t_config *config)
@@ -63,24 +63,9 @@ void	clean_texture(t_config *config)
 	config->tex_we = NULL;
 }
 
-//free all mlx pointers
-int	mlx_clean(t_mlx *config)
-{
-	if (config->img)
-		mlx_destroy_image(config->mlx, config->img);
-	if (config->win)
-		mlx_destroy_window(config->mlx, config->win);
-	if (config->mlx)
-	{
-		mlx_destroy_display(config->mlx);
-		free(config->mlx);
-	}
-	return (0);
-}
-
 int	clean_game(t_game *game)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < 4)

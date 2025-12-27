@@ -14,8 +14,8 @@
 
 int	is_suffix_correct(char *str, char *suffix)
 {
-	size_t		i;
-	size_t		j;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	j = 0;
@@ -33,12 +33,12 @@ int	is_suffix_correct(char *str, char *suffix)
 
 int	is_map_suffix_correct(t_config *config, char *suffix)
 {
-	if((is_suffix_correct(config->tex_no, suffix) != 0)
-	||(is_suffix_correct(config->tex_so, suffix) != 0)
-	||(is_suffix_correct(config->tex_we, suffix) != 0)
-	||(is_suffix_correct(config->tex_ea, suffix) != 0))
-		return(1);
-	return(0);
+	if ((is_suffix_correct(config->tex_no, suffix) != 0)
+		|| (is_suffix_correct(config->tex_so, suffix) != 0)
+		|| (is_suffix_correct(config->tex_we, suffix) != 0)
+		|| (is_suffix_correct(config->tex_ea, suffix) != 0))
+		return (1);
+	return (0);
 }
 
 int	is_only_space(char *str)
@@ -46,13 +46,13 @@ int	is_only_space(char *str)
 	size_t	i;
 
 	i = 0;
-	if(!str)
-		return(1);
-	while(str[i])
+	if (!str)
+		return (1);
+	while (str[i])
 	{
-		if(ft_isspace(str[i]) == 0)
-			return(1);
+		if (ft_isspace(str[i]) == 0)
+			return (1);
 		i++;
 	}
-	return(0);
+	return (0);
 }

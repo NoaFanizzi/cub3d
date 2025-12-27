@@ -190,19 +190,24 @@ int     is_suffix_correct(char *str, char *suffix);
 int     is_map_suffix_correct(t_config *config, char *suffix);
 int     is_only_space(char *str);
 
+//parsing_map.c
+int     check_validity(char **map);
+int     check_border(char **map);
+int     map_parser(int argc, char **argv, char ***map, t_config *config);
+
+//parsing_texture.c
+int     parse_textures(int fd, t_config *config);
+
+//parsing_config.c
+int		parse_config_line(char *line, t_config *config);
+int		is_config_complete(t_config *config);
+
 //parsing_utils.c
 int     get_last_line_pos(char ***map);
 int	    get_last_line_length(char ***map);
 void	replace_char(char ***map, char old, char new, t_config *config);
 void	get_tab_length(char ***tab, size_t *length);
 
-//parsing.c
-int	    check_validity(char **map);
-int	    parse_textures(int fd, t_config *config);
-int 	check_border(char **map);
-int	    map_parser(int argc, char **argv, char ***map, t_config *config);
-int		parse_config_line(char *line, t_config *config);
-int		is_config_complete(t_config *config);
 
 //map_init.c
 int parse_color_line(char *line, char identifier, int *color_array);
@@ -226,8 +231,10 @@ void	load_delimitation_line(char **trimmed_map, size_t length);
 void	add_last_line(char ***map);
 
 //map_utils.c
-int is_str_digit(char *str);
-int	validate_line_format(char *line, char identifier);
+int		handle_map_error(char **line, char ***map, int fd);
+int		is_str_digit(char *str);
+int		validate_line_format(char *line, char identifier);
+int		handle_map_case(char **line, int *map_started, char ***map, int fd);
 
 //mlx_init.c
 t_bool	init_mlx(t_game *game);
@@ -236,6 +243,7 @@ t_bool	init_mlx(t_game *game);
 void	cleanup_mlx(t_mlx *config);
 void	cleanup_window(t_mlx *config);
 void	cleanup_image(t_mlx *config);
+int		mlx_clean(t_mlx *config);
 
 //mlx_config.c
 t_bool	init_textures(t_game *game);

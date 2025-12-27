@@ -6,17 +6,11 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 18:27:41 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/12/27 10:11:30 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/27 10:47:03 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
-
-// void	ft_display_colors(t_config *config)
-// {
-// 	printf("Floor color: R=%d, G=%d, B=%d\n", config->floor[0], config->floor[1], config->floor[2]);
-// 	printf("Ceiling color: R=%d, G=%d, B=%d\n", config->ceiling[0], config->ceiling[1], config->ceiling[2]);
-// }
 
 static int	count_colors(char **colors)
 {
@@ -77,12 +71,12 @@ int	parse_color_line(char *line, char identifier, int *color_array)
 	return (error);
 }
 
-int parse_colors(int fd, t_config *config)
+int	parse_colors(int fd, t_config *config)
 {
 	char	*temp;
 
-	temp = get_next_line(fd); //PROTECTED
-	while(is_only_space(temp) == 0)
+	temp = get_next_line(fd); // PROTECTED
+	while (is_only_space(temp) == 0)
 	{
 		ft_wipe(&temp);
 		temp = get_next_line(fd);
@@ -90,8 +84,8 @@ int parse_colors(int fd, t_config *config)
 	printf("Color line 1: %s", temp);
 	if (!temp || parse_color_line(temp, 'F', config->floor))
 		return (1);
-	temp = get_next_line(fd); //PROTECTED
-	while(is_only_space(temp) == 0)
+	temp = get_next_line(fd); // PROTECTED
+	while (is_only_space(temp) == 0)
 	{
 		ft_wipe(&temp);
 		temp = get_next_line(fd);

@@ -6,23 +6,14 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 15:01:53 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/12/26 18:48:25 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/27 10:46:29 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-static int	handle_map_error(char **line, char ***map, int fd)
-{
-	if (line && *line)
-		free(*line);
-	if (map && *map)
-		free_tab(map);
-	close(fd);
-	return (1);
-}
-
-static int	handle_config_line(char *line, t_config *config, char ***map, int fd)
+static int	handle_config_line(char *line, t_config *config, char ***map,
+		int fd)
 {
 	int	config_res;
 
@@ -51,29 +42,48 @@ static int	handle_map_line(char **line, int *map_started)
 	return (0);
 }
 
+static int	process_line(char **line, int *map_started, char ***map,
+		t_config *config)
+{
+	int	res;
+
+	if (handle_map_line(line, map_started))
+		return (2);
+	if (*map_started == 2)
+	{
+		handle_map_error(line, map, -1);
+		return (0);
+	}
+	res = handle_config_line(*line, config, map, -1);
+	if (res == 1)
+		return (0);
+	else if (res == 2)
+		return (handle_map_case(line, map_started, map, -1));
+	return (1);
+}
+
 static int	read_map_loop(int fd, t_config *config, char ***map)
 {
 	char	*line;
 	int		map_started;
-	int		res;
+	int		result;
 
 	map_started = 0;
-	while ((line = get_next_line(fd)))
+	line = get_next_line(fd);
+	while (line)
 	{
-		if (handle_map_line(&line, &map_started))
-			continue ;
-		if (map_started == 2)
-			return (handle_map_error(&line, map, fd), 0);
-		res = handle_config_line(line, config, map, fd);
-		if (res == 1)
-			return (0);
-		else if (res == 2)
+		result = process_line(&line, &map_started, map, config);
+		if (result == 0)
 		{
-			map_started = 1;
-			if (update_map(map, &line) != 0)
-				return (handle_map_error(&line, map, fd), 0);
-			free(line);
+			close(fd);
+			return (0);
 		}
+		if (result == 2)
+		{
+			line = get_next_line(fd);
+			continue ;
+		}
+		line = get_next_line(fd);
 	}
 	return (1);
 }

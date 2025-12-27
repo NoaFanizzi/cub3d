@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 13:27:22 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/12/26 14:31:07 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/27 10:48:43 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ void	draw_vertical_text(t_mlx *mlx, int x, t_ray *ray, t_tex *tex)
 				ray->tex_y = 0;
 		}
 		ray->tex_pos += ray->tex_step;
-		if (ray->tex_y >= 0 && ray->tex_y < tex->height
-			&& ray->tex_x >= 0 && ray->tex_x < tex->width)
+		if (ray->tex_y >= 0 && ray->tex_y < tex->height && ray->tex_x >= 0
+			&& ray->tex_x < tex->width)
 		{
 			color = ((int *)tex->addr)[ray->tex_y * tex->width + ray->tex_x];
 			my_put_pixel(mlx, x, y, color);

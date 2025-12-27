@@ -23,8 +23,8 @@ static void	player_start_pos(char **map, t_config *config, t_player *player)
 		j = 0;
 		while (map[i][j])
 		{
-			if (map[i][j] == 'N' || map[i][j] == 'W' ||
-				map[i][j] == 'E' || map[i][j] == 'S')
+			if (map[i][j] == 'N' || map[i][j] == 'W' || map[i][j] == 'E'
+				|| map[i][j] == 'S')
 			{
 				config->player_start_dir = map[i][j];
 				config->player_start_x = j;

@@ -14,7 +14,7 @@
 
 static t_bool	check_collision(char move, t_player *p, char **map)
 {
-	double new_x;
+	double	new_x;
 	double	new_y;
 
 	if (move == 'U')
@@ -40,10 +40,10 @@ static t_bool	check_collision(char move, t_player *p, char **map)
 	return (map[(int)(new_y)][(int)(new_x)] != '1');
 }
 
-static void rotate_player(t_player *p, double angle)
+static void	rotate_player(t_player *p, double angle)
 {
-	double old_dir_x;
-	double old_plane_x;
+	double	old_dir_x;
+	double	old_plane_x;
 
 	old_dir_x = p->dir_x;
 	old_plane_x = p->plane_x;
@@ -53,7 +53,7 @@ static void rotate_player(t_player *p, double angle)
 	p->plane_y = old_plane_x * sin(angle) + p->plane_y * cos(angle);
 }
 
-void player_movement(t_player *p, char **map)
+void	player_movement(t_player *p, char **map)
 {
 	if (p->up && check_collision('U', p, map))
 	{

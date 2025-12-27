@@ -12,30 +12,31 @@
 
 #include "cube.h"
 
-int check_and_add_texture(char *temp, const char *prefix, char **dest)
+int	check_and_add_texture(char *temp, const char *prefix, char **dest)
 {
-    char *trimmed_path;
+	char	*trimmed_path;
 
-    if (ft_strncmp(temp, prefix, 3) != 0)
-    {
-        ft_wipe(&temp);
-        return (1);
-    }
-    if (*dest) 
-    {
-        ft_putstr_fd("Error: Duplicate texture definition\n", 2);
-        ft_wipe(&temp);
-        return (1);
-    }
-    trimmed_path = ft_strtrim(&temp[3], " \t\n\v\f\r"); // PROTECTED
-    ft_wipe(&temp);
-    if (!trimmed_path || ft_strlen(trimmed_path) == 0)
-    {
-        if (trimmed_path) free(trimmed_path);
-        return (1);
-    }
-    *dest = trimmed_path;
-    return (0);
+	if (ft_strncmp(temp, prefix, 3) != 0)
+	{
+		ft_wipe(&temp);
+		return (1);
+	}
+	if (*dest)
+	{
+		ft_putstr_fd("Error: Duplicate texture definition\n", 2);
+		ft_wipe(&temp);
+		return (1);
+	}
+	trimmed_path = ft_strtrim(&temp[3], " \t\n\v\f\r"); // PROTECTED
+	ft_wipe(&temp);
+	if (!trimmed_path || ft_strlen(trimmed_path) == 0)
+	{
+		if (trimmed_path)
+			free(trimmed_path);
+		return (1);
+	}
+	*dest = trimmed_path;
+	return (0);
 }
 
 int	init_first_lines(char ***new_map, char *line)
@@ -90,7 +91,8 @@ void	add_last_line(char ***map)
 		return ;
 	load_delimitation_line(&line_full_x, length);
 	old_map = *map;
-	if (resize_map(map, &new_map, &line_full_x, 1) == 0) // FIXED: Check return value
+	if (resize_map(map, &new_map, &line_full_x, 1) == 0)
+		// FIXED: Check return value
 	{
 		if (old_map)
 			free_tab(&old_map);
@@ -98,4 +100,3 @@ void	add_last_line(char ***map)
 	}
 	free(line_full_x);
 }
-

@@ -6,43 +6,46 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 14:24:41 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/12/26 14:24:43 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/27 10:27:12 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-int rgb_to_color(int rgb[3])
+int	rgb_to_color(int rgb[3])
 {
-	return (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
+	return ((rgb[0] << 16) | (rgb[1] << 8) | rgb[2]);
 }
 
-long long get_time_micro(void)
+long long	get_time_micro(void)
 {
-	struct timeval tv;
+	struct timeval	tv;
+
 	gettimeofday(&tv, NULL);
 	return (tv.tv_sec * 1000000LL + tv.tv_usec);
 }
 
-void limit_fps(t_game *game)
+void	limit_fps(t_game *game)
 {
-	long long now = get_time_micro();
-	long long elapsed = now - game->last_frame;
+	long long	now;
+	long long	elapsed;
 
+	now = get_time_micro();
+	elapsed = now - game->last_frame;
 	if (elapsed < FRAME_TIME_US)
 		usleep(FRAME_TIME_US - elapsed);
 	game->last_frame = get_time_micro();
 }
 
-void color_ceiling_floor(t_game *game)
+void	color_ceiling_floor(t_game *game)
 {
-	int 	i;
-	int 	ceiling_color;
-	int 	floor_color;
-	char	*addr;;
+	int		i;
+	int		ceiling_color;
+	int		floor_color;
+	char	*addr;
 
 	ceiling_color = rgb_to_color(game->cfg.ceiling);
-	floor_color   = rgb_to_color(game->cfg.floor);
+	floor_color = rgb_to_color(game->cfg.floor);
 	addr = game->mlx_cfg.addr;
 	i = 0;
 	while (i < WIDTH * HEIGHT / 2)
@@ -63,6 +66,7 @@ int	game_loop(t_game *game)
 	player_movement(&game->player, game->cfg.map);
 	color_ceiling_floor(game);
 	raycasting(game);
-	mlx_put_image_to_window(game->mlx_cfg.mlx, game->mlx_cfg.win, game->mlx_cfg.img, 0, 0);
+	mlx_put_image_to_window(game->mlx_cfg.mlx, game->mlx_cfg.win,
+		game->mlx_cfg.img, 0, 0);
 	return (0);
 }

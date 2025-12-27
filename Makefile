@@ -20,8 +20,10 @@ SRC_FILES   =   main.c \
                 map_resizing.c \
 				map_line_management.c \
 				map_utils.c \
-                parsing.c \
+				parsing_config.c \
+				parsing_map.c \
                 parsing_syntax.c \
+                parsing_texture.c \
                 parsing_utils.c \
                 clean.c \
                 mlx_config.c \
