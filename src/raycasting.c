@@ -6,11 +6,16 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 10:35:23 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/12/27 10:35:25 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/27 10:52:39 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
+
+t_bool	is_power_two(int n)
+{
+	return (n && !(n & (n - 1)));
+}
 
 void	init_ray_step_side(t_game *g)
 {

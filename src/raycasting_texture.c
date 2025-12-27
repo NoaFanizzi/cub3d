@@ -6,16 +6,11 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 13:27:22 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/12/27 10:48:43 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/27 10:52:31 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
-
-static t_bool	is_power_two(int n)
-{
-	return (n && !(n & (n - 1)));
-}
 
 t_tex	*choose_tex(t_game *g)
 {
@@ -67,6 +62,20 @@ void	find_texture_step(t_ray *ray, t_tex *tex)
 		ray->draw_end = HEIGHT - 1;
 }
 
+static void	calculate_tex_y(t_ray *ray, t_tex *tex)
+{
+	if (is_power_two(tex->height))
+		ray->tex_y = (int)ray->tex_pos & (tex->height - 1);
+	else
+	{
+		ray->tex_y = (int)ray->tex_pos;
+		if (ray->tex_y >= tex->height)
+			ray->tex_y = tex->height - 1;
+		if (ray->tex_y < 0)
+			ray->tex_y = 0;
+	}
+}
+
 void	draw_vertical_text(t_mlx *mlx, int x, t_ray *ray, t_tex *tex)
 {
 	int	y;
@@ -76,21 +85,13 @@ void	draw_vertical_text(t_mlx *mlx, int x, t_ray *ray, t_tex *tex)
 	y = ray->draw_start;
 	while (y < ray->draw_end)
 	{
-		if (is_power_two(tex->height))
-			ray->tex_y = (int)ray->tex_pos & (tex->height - 1);
-		else
-		{
-			ray->tex_y = (int)ray->tex_pos;
-			if (ray->tex_y >= tex->height)
-				ray->tex_y = tex->height - 1;
-			if (ray->tex_y < 0)
-				ray->tex_y = 0;
-		}
+		calculate_tex_y(ray, tex);
 		ray->tex_pos += ray->tex_step;
-		if (ray->tex_y >= 0 && ray->tex_y < tex->height && ray->tex_x >= 0
-			&& ray->tex_x < tex->width)
+		if (ray->tex_y >= 0 && ray->tex_y < tex->height
+			&& ray->tex_x >= 0 && ray->tex_x < tex->width)
 		{
-			color = ((int *)tex->addr)[ray->tex_y * tex->width + ray->tex_x];
+			color = ((int *)tex->addr)[ray->tex_y * tex->width
+				+ ray->tex_x];
 			my_put_pixel(mlx, x, y, color);
 		}
 		y++;

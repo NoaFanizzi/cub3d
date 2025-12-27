@@ -162,6 +162,7 @@ int	    key_release(int keycode, t_game *game);
 void	player_movement(t_player *p, char **map);
 
 //raycasting
+t_bool	is_power_two(int n);
 void    raycasting(t_game *g);
 void	draw_vertical_text(t_mlx *mlx, int x, t_ray *ray, t_tex *tex);
 void	find_texture_x(t_ray *ray, t_player *p, t_tex *tex);
