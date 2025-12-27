@@ -6,11 +6,11 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 10:17:12 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/12/27 10:26:22 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/27 11:42:56 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "mlx_management.h"
 
 void	cleanup_mlx(t_mlx *config)
 {

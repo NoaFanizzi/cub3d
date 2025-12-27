@@ -6,11 +6,12 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 15:00:00 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/12/27 10:32:33 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/27 11:46:37 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "parsing.h"
+#include "map.h"
 
 int	parse_config_line(char *line, t_config *config)
 {

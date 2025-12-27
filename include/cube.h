@@ -148,105 +148,11 @@ typedef struct s_game {
 }   t_game;
 
 
-void	my_put_pixel(t_mlx *mlx, int x, int y, int color);
-long long get_time_micro(void);
-
-//init
-t_bool  init_mlx(t_game *game);
-int     init_player(t_game *game);
-
-//game
-int     game_loop(t_game *game);
-int     key_press(int keycode, t_game *game);
-int	    key_release(int keycode, t_game *game);
-void	player_movement(t_player *p, char **map);
-
-//raycasting
-t_bool	is_power_two(int n);
-void    raycasting(t_game *g);
-void	draw_vertical_text(t_mlx *mlx, int x, t_ray *ray, t_tex *tex);
-void	find_texture_x(t_ray *ray, t_player *p, t_tex *tex);
-t_tex	*choose_tex(t_game *g);
-
-//parsing.c
-int	    is_suffix_correct(char *str, char *suffix);
-int	    check_validity(char **map);
-int     check_and_add_texture(char *temp, const char *prefix, char **dest);
-void	add_last_line(char ***map);
-int     map_parser(int argc, char **argv, char ***map, t_config *config);
-void	replace_char(char ***map, char old, char new, t_config *config);
-char	**get_map(char **argv, t_config *config);
-int     parse_textures(int fd, t_config *config);
-
 //clean.c
-int     clean_game(t_game *game);
-int     mlx_clean(t_mlx *config);
-void    remove_last_char(char *str);
-void    free_tab(char ***tab);
-void    ft_wipe(char **str);
-void    clean_texture(t_config *config);
-
-//parsing_syntax.c
-int     is_suffix_correct(char *str, char *suffix);
-int     is_map_suffix_correct(t_config *config, char *suffix);
-int     is_only_space(char *str);
-
-//parsing_map.c
-int     check_validity(char **map);
-int     check_border(char **map);
-int     map_parser(int argc, char **argv, char ***map, t_config *config);
-
-//parsing_texture.c
-int     parse_textures(int fd, t_config *config);
-
-//parsing_config.c
-int		parse_config_line(char *line, t_config *config);
-int		is_config_complete(t_config *config);
-
-//parsing_utils.c
-int     get_last_line_pos(char ***map);
-int	    get_last_line_length(char ***map);
-void	replace_char(char ***map, char old, char new, t_config *config);
-void	get_tab_length(char ***tab, size_t *length);
-
-
-//map_init.c
-int parse_color_line(char *line, char identifier, int *color_array);
-
-//colors.c
-void	ft_display_colors(t_config *config);
-int 	parse_color_line(char *line, char identifier, int *color_array);
-int 	parse_colors(int fd, t_config *config);
-
-//map_resizing.c
-int		update_map(char ***map, char **temp);
-int     resize_map(char ***map, char ***new_map, char **temp, int is_last);
-void	load_delimitation_line(char **trimmed_map, size_t length);
-void	add_last_line(char ***map);
-
-
-//map_line_management.c
-int		check_and_add_texture(char *temp, const char *prefix, char **dest);
-int		init_first_lines(char ***new_map, char *line);
-void	load_delimitation_line(char **trimmed_map, size_t length);
-void	add_last_line(char ***map);
-
-//map_utils.c
-int		handle_map_error(char **line, char ***map, int fd);
-int		is_str_digit(char *str);
-int		validate_line_format(char *line, char identifier);
-int		handle_map_case(char **line, int *map_started, char ***map, int fd);
-
-//mlx_init.c
-t_bool	init_mlx(t_game *game);
-
-//mlx_cleaning.c
-void	cleanup_mlx(t_mlx *config);
-void	cleanup_window(t_mlx *config);
-void	cleanup_image(t_mlx *config);
-int		mlx_clean(t_mlx *config);
-
-//mlx_config.c
-t_bool	init_textures(t_game *game);
+void	remove_last_char(char *str);
+void	free_tab(char ***tab);
+void	ft_wipe(char **str);
+void	clean_texture(t_config *config);
+int		clean_game(t_game *game);
 
 #endif

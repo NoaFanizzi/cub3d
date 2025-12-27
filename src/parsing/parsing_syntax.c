@@ -6,11 +6,11 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 16:42:57 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/12/26 14:29:10 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/27 11:43:32 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "parsing.h"
 
 int	is_suffix_correct(char *str, char *suffix)
 {

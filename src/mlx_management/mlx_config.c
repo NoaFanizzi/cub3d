@@ -6,11 +6,11 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 17:19:44 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/12/27 10:18:29 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/27 11:43:05 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "mlx_management.h"
 
 void	my_put_pixel(t_mlx *mlx, int x, int y, int color)
 {

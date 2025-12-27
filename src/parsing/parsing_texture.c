@@ -6,11 +6,12 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 10:31:38 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/12/27 10:32:14 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/27 11:47:17 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "parsing.h"
+#include "map.h"
 
 static int	parse_single_texture(int fd, const char *prefix, char **dest)
 {

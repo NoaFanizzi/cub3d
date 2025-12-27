@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   player_mouvement.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmarcucc <lucas@student.fr>                +#+  +:+       +#+        */
+/*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 15:52:58 by lmarcucc          #+#    #+#             */
-/*   Updated: 2025/11/30 16:14:39 by lmarcucc         ###   ########.fr       */
+/*   Updated: 2025/12/27 11:44:08 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "player.h"
 
 static t_bool	check_collision(char move, t_player *p, char **map)
 {

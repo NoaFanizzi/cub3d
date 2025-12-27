@@ -6,11 +6,11 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 14:24:49 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/12/26 14:24:51 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/27 11:43:45 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "player.h"
 
 int	key_press(int keycode, t_game *game)
 {

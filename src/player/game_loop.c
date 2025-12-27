@@ -6,11 +6,12 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 14:24:41 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/12/27 10:27:12 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/27 11:49:55 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "player.h"
+#include "raycasting.h"
 
 int	rgb_to_color(int rgb[3])
 {

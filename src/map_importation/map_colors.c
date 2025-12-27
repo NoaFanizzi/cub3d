@@ -6,11 +6,12 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 18:27:41 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/12/27 10:47:03 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/27 11:44:55 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "map.h"
+#include "parsing.h"
 
 static int	count_colors(char **colors)
 {

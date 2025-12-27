@@ -6,18 +6,19 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 10:15:06 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/12/27 10:47:36 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/27 11:48:11 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "mlx_management.h"
+#include "player.h"
 
 static t_bool	init_mlx_instance(t_mlx *config)
 {
 	config->mlx = mlx_init();
 	if (!config->mlx)
 	{
-		write(2, "mlx_init() fail\n", 17);
+		ft_putstr_fd("Error\n", 2);
 		return (false);
 	}
 	return (true);
@@ -28,7 +29,7 @@ static t_bool	init_window(t_mlx *config)
 	config->win = mlx_new_window(config->mlx, WIDTH, HEIGHT, "Cub3D");
 	if (!config->win)
 	{
-		write(2, "mlx_new_window() fail\n", 23);
+		ft_putstr_fd("Error\n", 2);
 		cleanup_mlx(config);
 		return (false);
 	}

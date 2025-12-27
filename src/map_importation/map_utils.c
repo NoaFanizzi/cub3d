@@ -6,11 +6,11 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 10:10:54 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/12/27 10:47:22 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/27 11:42:49 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "map.h"
 
 int	handle_map_error(char **line, char ***map, int fd)
 {

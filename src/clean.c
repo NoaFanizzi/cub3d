@@ -6,11 +6,12 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 16:04:23 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/12/27 10:26:17 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/27 11:40:54 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
+#include "mlx_management.h"
 
 void	remove_last_char(char *str)
 {

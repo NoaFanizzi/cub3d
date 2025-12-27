@@ -6,11 +6,12 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 10:29:54 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/12/27 10:47:40 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/27 11:47:05 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "parsing.h"
+#include "map.h"
 
 int	check_validity(char **map)
 {

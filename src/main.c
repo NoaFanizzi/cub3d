@@ -6,11 +6,15 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 15:47:17 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/12/26 18:25:10 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/27 11:39:35 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
+#include "map.h"
+#include "mlx_management.h"
+#include "player.h"
+#include "parsing.h"
 
 int	main(int argc, char **argv)
 {
@@ -24,9 +28,9 @@ int	main(int argc, char **argv)
 	{
 		clean_texture(&game.cfg);
 		if (argc == 1)
-			ft_putstr_fd("No map sent !\n", 2);
+			ft_putstr_fd("Error\n", 2);
 		else
-			ft_putstr_fd("Invalid map sent !\n", 2);
+			ft_putstr_fd("Error\n", 2);
 		return (1);
 	}
 	if (!init_player(&game) || !init_mlx(&game))

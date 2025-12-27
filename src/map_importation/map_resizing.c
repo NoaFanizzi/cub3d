@@ -6,11 +6,12 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 18:43:18 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/12/26 18:47:28 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/27 11:45:26 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "map.h"
+#include "parsing.h"
 
 int	update_map(char ***map, char **temp)
 {

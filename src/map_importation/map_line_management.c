@@ -6,11 +6,12 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 18:47:06 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/12/27 10:02:33 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/27 11:46:06 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "map.h"
+#include "parsing.h"
 
 int	check_and_add_texture(char *temp, const char *prefix, char **dest)
 {
@@ -23,7 +24,7 @@ int	check_and_add_texture(char *temp, const char *prefix, char **dest)
 	}
 	if (*dest)
 	{
-		ft_putstr_fd("Error: Duplicate texture definition\n", 2);
+		ft_putstr_fd("Error\n", 2);
 		ft_wipe(&temp);
 		return (1);
 	}

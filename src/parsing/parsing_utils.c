@@ -6,13 +6,13 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 16:45:38 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/12/26 18:31:23 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/27 11:43:39 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "parsing.h"
 
-void	replace_char(char ***map, char old, char new, t_config *config)
+void	replace_char(char ***map, char old, char nw, t_config *config)
 {
 	size_t	i;
 	size_t	j;
@@ -25,7 +25,7 @@ void	replace_char(char ***map, char old, char new, t_config *config)
 		while ((*map)[i][j])
 		{
 			if ((*map)[i][j] == old)
-				(*map)[i][j] = new;
+				(*map)[i][j] = nw;
 			j++;
 		}
 		i++;

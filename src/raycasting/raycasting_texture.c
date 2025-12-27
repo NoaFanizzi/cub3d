@@ -6,11 +6,13 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 13:27:22 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/12/27 10:52:31 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/27 11:49:36 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "raycasting.h"
+#include "mlx_management.h"
+#include "raycasting.h"
 
 t_tex	*choose_tex(t_game *g)
 {

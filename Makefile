@@ -12,38 +12,49 @@ INC_DIR     =   include/
 MLX_DIR     =   minilibx/
 LIBFT_DIR   =   libft/
 
-#                           FILES                           #
-INC_FILES	=	$(INC_DIR)cube.h
-SRC_FILES   =   main.c \
-                map_init.c \
-                map_colors.c \
-                map_resizing.c \
-				map_line_management.c \
-				map_utils.c \
-				parsing_config.c \
-				parsing_map.c \
-                parsing_syntax.c \
-                parsing_texture.c \
-                parsing_utils.c \
-                clean.c \
-                mlx_config.c \
-				mlx_init.c \
-				mlx_cleaning.c \
-                init_player.c \
-                raycasting.c \
-                game_loop.c \
-                control_key.c \
-                player_mouvement.c \
-                raycasting_texture.c
-OBJ_FILES   =   $(SRC_FILES:.c=.o)
+#                           SUBDIRECTORIES                  #
+MAP_DIR     =   map_importation/
+MLX_MGMT    =   mlx_management/
+RAYCAST_DIR =   raycasting/
+PARSE_DIR   =   parsing/
+PLAYER_DIR  =   player/
 
+#                           FILES                           #
+INC_FILES   =   $(INC_DIR)cube.h \
+                $(INC_DIR)map.h \
+                $(INC_DIR)mlx_management.h \
+                $(INC_DIR)parsing.h \
+                $(INC_DIR)player.h \
+                $(INC_DIR)raycasting.h
+
+SRC_FILES   =   main.c \
+                clean.c \
+                $(MAP_DIR)map_init.c \
+                $(MAP_DIR)map_colors.c \
+                $(MAP_DIR)map_resizing.c \
+                $(MAP_DIR)map_line_management.c \
+                $(MAP_DIR)map_utils.c \
+                $(PARSE_DIR)parsing_config.c \
+                $(PARSE_DIR)parsing_map.c \
+                $(PARSE_DIR)parsing_syntax.c \
+                $(PARSE_DIR)parsing_texture.c \
+                $(PARSE_DIR)parsing_utils.c \
+                $(MLX_MGMT)mlx_config.c \
+                $(MLX_MGMT)mlx_init.c \
+                $(MLX_MGMT)mlx_cleaning.c \
+                $(RAYCAST_DIR)raycasting.c \
+                $(RAYCAST_DIR)raycasting_texture.c \
+                $(PLAYER_DIR)init_player.c \
+                $(PLAYER_DIR)game_loop.c \
+                $(PLAYER_DIR)control_key.c \
+                $(PLAYER_DIR)player_mouvement.c
+
+OBJ_FILES   =   $(SRC_FILES:.c=.o)
 SRC         =   $(addprefix $(SRC_DIR), $(SRC_FILES))
 OBJ         =   $(addprefix $(OBJ_DIR), $(OBJ_FILES))
 
-# FIX 1: Define the actual library files so the rules below work
 LIBFT       =   $(LIBFT_DIR)libft.a
 MLX         =   $(MLX_DIR)libmlx.a
-# Note: If using Linux MLX, this might need to be $(MLX_DIR)libmlx_Linux.a
 
 NAME        =   cub3D
 
@@ -56,41 +67,38 @@ LIBFT_FLAGS =   -L$(LIBFT_DIR) -lft
 MLX_FLAGS   =   -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
 
 #                           RULES                           #
-
 all: print_flags $(MLX) $(LIBFT) $(NAME)
 
 print_flags:
 	@echo "$(BLUE)Compiler: $(CC)$(RESET)"
 	@echo "$(BLUE)Flags: $(CFLAGS)$(RESET)"
 
-# FIX 2: Added $(LIBFT) and $(MLX) as dependencies. 
-# This guarantees they are built before linking.
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) $(LIBFT) $(MLX)
 	@$(CC) $(OBJ) $(LIBFT_FLAGS) $(MLX_FLAGS) -o $(NAME)
 	@echo "$(GREEN)Build successful -> $(NAME)$(RESET)"
 
-# Object compilation
+# Object compilation with subdirectory creation
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(INC_FILES)
-	@mkdir -p $(OBJ_DIR)
-	@echo "$(GREEN)Compiling $@...$(RESET)"
+	@mkdir -p $(dir $@)
+	@echo "$(GREEN)Compiling $<...$(RESET)"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 # Rules to compile external libraries
 $(LIBFT):
-	make -C $(LIBFT_DIR)
+	@make -C $(LIBFT_DIR)
 
 $(MLX):
-	make -C $(MLX_DIR)
+	@make -C $(MLX_DIR)
 
 clean:
 	@echo "$(RED)Removing object files...$(RESET)"
 	@rm -rf $(OBJ_DIR)
-	make clean -C $(LIBFT_DIR)
-	make clean -C $(MLX_DIR)
+	@make clean -C $(LIBFT_DIR)
+	@make clean -C $(MLX_DIR)
 
 fclean: clean
 	@echo "$(RED)Removing executable...$(RESET)"
-	make fclean -C $(LIBFT_DIR)
+	@make fclean -C $(LIBFT_DIR)
 	@rm -f $(NAME)
 
 re: fclean all
