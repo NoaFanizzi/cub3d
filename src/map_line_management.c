@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 18:47:06 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/12/26 18:48:45 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/27 10:02:33 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,3 +98,4 @@ void	add_last_line(char ***map)
 	}
 	free(line_full_x);
 }
+

@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 15:00:00 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/12/26 14:31:02 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/27 10:20:28 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ int	check_validity(char **map)
 	size_t	j;
 
 	count = 0;
-	i = 0;
-	while (map[i])
+	i = -1;
+	while (map[++i])
 	{
-		j = 0;
-		while (map[i][j])
+		j = -1;
+		while (map[i][++j])
 		{
 			if ((map[i][j] != '0' && map[i][j] != '1') && (map[i][j] != 'N'
 					&& map[i][j] != 'S') && (map[i][j] != 'E'
@@ -34,9 +34,7 @@ int	check_validity(char **map)
 				count++;
 			if (count > 1)
 				return (1);
-			j++;
 		}
-		i++;
 	}
 	if (count != 1)
 		return (1);

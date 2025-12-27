@@ -218,4 +218,26 @@ int     resize_map(char ***map, char ***new_map, char **temp, int is_last);
 void	load_delimitation_line(char **trimmed_map, size_t length);
 void	add_last_line(char ***map);
 
+
+//map_line_management.c
+int		check_and_add_texture(char *temp, const char *prefix, char **dest);
+int		init_first_lines(char ***new_map, char *line);
+void	load_delimitation_line(char **trimmed_map, size_t length);
+void	add_last_line(char ***map);
+
+//map_utils.c
+int is_str_digit(char *str);
+int	validate_line_format(char *line, char identifier);
+
+//mlx_init.c
+t_bool	init_mlx(t_game *game);
+
+//mlx_cleaning.c
+void	cleanup_mlx(t_mlx *config);
+void	cleanup_window(t_mlx *config);
+void	cleanup_image(t_mlx *config);
+
+//mlx_config.c
+t_bool	init_textures(t_game *game);
+
 #endif

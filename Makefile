@@ -14,7 +14,25 @@ LIBFT_DIR   =   libft/
 
 #                           FILES                           #
 INC_FILES	=	$(INC_DIR)cube.h
-SRC_FILES   =   main.c map_init.c parsing.c parsing_syntax.c parsing_utils.c clean.c mlx_config.c init_player.c raycasting.c game_loop.c control_key.c player_mouvement.c raycasting_texture.c map_colors.c map_resizing.c
+SRC_FILES   =   main.c \
+                map_init.c \
+                map_colors.c \
+                map_resizing.c \
+				map_line_management.c \
+				map_utils.c \
+                parsing.c \
+                parsing_syntax.c \
+                parsing_utils.c \
+                clean.c \
+                mlx_config.c \
+				mlx_init.c \
+				mlx_cleaning.c \
+                init_player.c \
+                raycasting.c \
+                game_loop.c \
+                control_key.c \
+                player_mouvement.c \
+                raycasting_texture.c
 OBJ_FILES   =   $(SRC_FILES:.c=.o)
 
 SRC         =   $(addprefix $(SRC_DIR), $(SRC_FILES))
