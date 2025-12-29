@@ -18,7 +18,6 @@
 
 // FPS
 #define TARGET_FPS 60
-#define FRAME_TIME_US (1000000 / TARGET_FPS)
 
 // keys
 #define CROSS 17

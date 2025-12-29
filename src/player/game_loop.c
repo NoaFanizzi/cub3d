@@ -30,11 +30,13 @@ void	limit_fps(t_game *game)
 {
 	long long	now;
 	long long	elapsed;
+	long long	frame_time_us;
 
+	frame_time_us = 1000000 / TARGET_FPS;
 	now = get_time_micro();
 	elapsed = now - game->last_frame;
-	if (elapsed < FRAME_TIME_US)
-		usleep(FRAME_TIME_US - elapsed);
+	if (elapsed < frame_time_us)
+		usleep(frame_time_us - elapsed);
 	game->last_frame = get_time_micro();
 }
 
