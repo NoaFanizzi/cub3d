@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 10:10:54 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/12/27 11:42:49 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/29 10:52:55 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	handle_map_error(char **line, char ***map, int fd)
 		free(*line);
 	if (map && *map)
 		free_tab(map);
-	close(fd);
+	if (fd >= 0)
+		close(fd);
 	return (1);
 }
 
