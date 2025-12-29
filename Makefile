@@ -59,7 +59,7 @@ MLX         =   $(MLX_DIR)libmlx.a
 NAME        =   cub3D
 
 #                           COMPILER                        #
-CC          =   gcc
+CC          =   cc
 CFLAGS      =   -Wall -Wextra -Werror -I$(INC_DIR) -I$(LIBFT_DIR) -I$(MLX_DIR) -g
 
 #                           LIBRARIES                       #
