@@ -11,29 +11,29 @@
 /* ************************************************************************** */
 
 #ifndef MAP_H
-#define MAP_H
+# define MAP_H
 
-#include "libft.h"
-#include "stdlib.h" 
-#include "cube.h"
+# include "cube.h"
+# include "libft.h"
+# include "stdlib.h"
 
-//map_colors.c
+// map_colors.c
 int		parse_color_line(char *line, char identifier, int *color_array);
 
-//map_init.c
+// map_init.c
 char	**get_map(char **argv, t_config *config);
 
-//map_line_management.c
+// map_line_management.c
 int		check_and_add_texture(char *temp, const char *prefix, char **dest);
 int		init_first_lines(char ***new_map, char *line);
 void	load_delimitation_line(char **trimmed_map, size_t length);
 void	add_last_line(char ***map);
 
-//map_resizing.c
+// map_resizing.c
 int		update_map(char ***map, char **temp);
-int     resize_map(char ***map, char ***new_map, char **temp, int is_last);
+int		resize_map(char ***map, char ***new_map, char **temp, int is_last);
 
-//map_utils.c
+// map_utils.c
 int		handle_map_error(char **line, char ***map, int fd);
 int		handle_map_case(char **line, int *map_started, char ***map, int fd);
 int		is_str_digit(char *str);

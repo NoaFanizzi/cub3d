@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 18:27:41 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/12/27 11:44:55 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/29 11:08:14 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	parse_colors(int fd, t_config *config)
 {
 	char	*temp;
 
-	temp = get_next_line(fd); // PROTECTED
+	temp = get_next_line(fd);
 	while (is_only_space(temp) == 0)
 	{
 		ft_wipe(&temp);
@@ -85,7 +85,7 @@ int	parse_colors(int fd, t_config *config)
 	printf("Color line 1: %s", temp);
 	if (!temp || parse_color_line(temp, 'F', config->floor))
 		return (1);
-	temp = get_next_line(fd); // PROTECTED
+	temp = get_next_line(fd);
 	while (is_only_space(temp) == 0)
 	{
 		ft_wipe(&temp);

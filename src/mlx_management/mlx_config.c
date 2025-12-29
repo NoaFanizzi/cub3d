@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 17:19:44 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/12/27 11:43:05 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/29 10:57:19 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,7 @@ static t_bool	init_xpm_texture(t_tex *tex, void *mlx, char *path)
 	tex->img = mlx_xpm_file_to_image(mlx, path, &tex->width, &tex->height);
 	if (!tex->img)
 	{
-		perror("failed to load img ");
-		write(2, path, ft_strlen(path));
-		write(2, "\n", 1);
+		ft_putstr_fd("Error\n", 2);
 		return (false);
 	}
 	tex->addr = mlx_get_data_addr(tex->img, &tex->bpp, &tex->size_line,

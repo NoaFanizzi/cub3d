@@ -6,7 +6,7 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 18:47:06 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/12/27 11:46:06 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/29 11:09:21 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	check_and_add_texture(char *temp, const char *prefix, char **dest)
 		ft_wipe(&temp);
 		return (1);
 	}
-	trimmed_path = ft_strtrim(&temp[3], " \t\n\v\f\r"); // PROTECTED
+	trimmed_path = ft_strtrim(&temp[3], " \t\n\v\f\r");
 	ft_wipe(&temp);
 	if (!trimmed_path || ft_strlen(trimmed_path) == 0)
 	{
@@ -93,7 +93,6 @@ void	add_last_line(char ***map)
 	load_delimitation_line(&line_full_x, length);
 	old_map = *map;
 	if (resize_map(map, &new_map, &line_full_x, 1) == 0)
-		// FIXED: Check return value
 	{
 		if (old_map)
 			free_tab(&old_map);

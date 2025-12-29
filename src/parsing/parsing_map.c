@@ -6,12 +6,12 @@
 /*   By: nofanizz <nofanizz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 10:29:54 by nofanizz          #+#    #+#             */
-/*   Updated: 2025/12/27 11:47:05 by nofanizz         ###   ########.fr       */
+/*   Updated: 2025/12/29 11:07:15 by nofanizz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
 #include "map.h"
+#include "parsing.h"
 
 int	check_validity(char **map)
 {
@@ -56,7 +56,9 @@ int	check_border(char **map)
 			if (map[i][j] == '0' || map[i][j] == 'N' || map[i][j] == 'S'
 				|| map[i][j] == 'E' || map[i][j] == 'W')
 			{
-				if (i == 0 || j == 0 || !map[i + 1] || !map[i][j + 1])
+				if (i == 0 || j == 0 || ft_strlen(map[i - 1]) < j
+					|| ft_strlen(map[i + 1]) < j || !map[i + 1] || !map[i][j
+					+ 1])
 					return (1);
 				if (map[i][j - 1] == 'X' || map[i][j + 1] == 'X' || map[i
 					- 1][j] == 'X' || map[i + 1][j] == 'X')

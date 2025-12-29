@@ -11,26 +11,25 @@
 /* ************************************************************************** */
 
 #ifndef PLAYER_H
-#define PLAYER_H
+# define PLAYER_H
 
-#include "cube.h"
+# include "cube.h"
 
-//control_key.c
+// control_key.c
 int			key_press(int keycode, t_game *game);
 int			key_release(int keycode, t_game *game);
 
-//game_loop.c
+// game_loop.c
 int			rgb_to_color(int rgb[3]);
 long long	get_time_micro(void);
 void		limit_fps(t_game *game);
 void		color_ceiling_floor(t_game *game);
 int			game_loop(t_game *game);
 
-//init_player.c
-int	init_player(t_game *game);
+// init_player.c
+int			init_player(t_game *game);
 
-//player_movement.c
-void	player_movement(t_player *p, char **map);
+// player_movement.c
+void		player_movement(t_player *p, char **map);
 
 #endif
-

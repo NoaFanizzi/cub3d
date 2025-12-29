@@ -77,13 +77,11 @@ $(NAME): $(OBJ) $(LIBFT) $(MLX)
 	@$(CC) $(OBJ) $(LIBFT_FLAGS) $(MLX_FLAGS) -o $(NAME)
 	@echo "$(GREEN)Build successful -> $(NAME)$(RESET)"
 
-# Object compilation with subdirectory creation
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(INC_FILES)
 	@mkdir -p $(dir $@)
 	@echo "$(GREEN)Compiling $<...$(RESET)"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-# Rules to compile external libraries
 $(LIBFT):
 	@make -C $(LIBFT_DIR)
 
